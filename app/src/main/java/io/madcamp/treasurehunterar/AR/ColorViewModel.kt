@@ -1,4 +1,4 @@
-package io.madcamp.treasurehunterar
+package io.madcamp.treasurehunterar.AR
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

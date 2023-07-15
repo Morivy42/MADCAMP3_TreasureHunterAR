@@ -1,4 +1,4 @@
-package io.madcamp.treasurehunterar
+package io.madcamp.treasurehunterar.AR
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas

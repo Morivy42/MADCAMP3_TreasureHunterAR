@@ -1,4 +1,4 @@
-package io.madcamp.treasurehunterar
+package io.madcamp.treasurehunterar.AR
 
 import android.graphics.*
 import androidx.camera.core.ImageAnalysis

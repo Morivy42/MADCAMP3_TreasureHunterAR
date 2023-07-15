@@ -1,4 +1,4 @@
-package io.madcamp.treasurehunterar
+package io.madcamp.treasurehunterar.collection
 
 data class Collection(
     val id: String = "",

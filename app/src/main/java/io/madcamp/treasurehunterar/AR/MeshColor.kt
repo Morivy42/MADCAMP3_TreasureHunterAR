@@ -1,4 +1,4 @@
-package io.madcamp.treasurehunterar
+package io.madcamp.treasurehunterar.AR
 
 import androidx.annotation.ColorInt
 import androidx.compose.ui.graphics.Color

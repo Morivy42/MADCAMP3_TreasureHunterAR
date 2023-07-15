@@ -20,6 +20,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import io.madcamp.treasurehunterar.AR.ARScreen
+import io.madcamp.treasurehunterar.AR.ColorViewModel
+import io.madcamp.treasurehunterar.collection.CollectionDetail
+import io.madcamp.treasurehunterar.collection.CollectionScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,7 +85,7 @@ fun TreasureHunterARApp(colorViewModel: ColorViewModel) {
                 val collectionId = it.arguments?.getString("collectionId")!!
 
                 CollectionDetail(
-                    collectionId = collectionId
+                    navController
                 )
             }
         }

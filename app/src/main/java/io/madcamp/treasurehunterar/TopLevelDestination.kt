@@ -18,20 +18,20 @@ enum class TopLevelDestination(
         unselectedIcon = Icons.Default.Home,
         iconTextId = R.string.home_icon,
         titleTextId = R.string.app_name,
-        route = "home",
+        route = "home_screen",
     ),
     AR(
         selectedIcon = Icons.Filled.Face,
         unselectedIcon = Icons.Default.Face,
         iconTextId = R.string.ar_icon,
         titleTextId = R.string.app_name,
-        route = "ar",
+        route = "ar_screen",
     ),
     Collection(
         selectedIcon = Icons.Filled.Place,
         unselectedIcon = Icons.Default.Place,
         iconTextId = R.string.collection,
         titleTextId = R.string.app_name,
-        route = "collection",
+        route = "collection_screen",
     ),
 }

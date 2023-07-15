@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
+import io.madcamp.treasurehunterar.AR.ColorViewModel
 import io.madcamp.treasurehunterar.ui.theme.TreasureHunterARTheme
 
 class MainActivity : ComponentActivity() {
@@ -66,6 +67,7 @@ class MainActivity : ComponentActivity() {
                 color = MaterialTheme.colorScheme.background
             ) {
                 TreasureHunterARApp(colorViewModel)
+//                RootNavGraph(navController = rememberNavController())
             }
         }
     }
