@@ -14,10 +14,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,7 +69,21 @@ fun TreasureHunterARApp(colorViewModel: ColorViewModel) {
         NavHost(navController, startDestination = TopLevelDestination.Home.route, Modifier.padding(innerPadding)) {
             composable( TopLevelDestination.Home.route ) { HomeScreen() }
             composable( TopLevelDestination.AR.route ) { ARScreen(colorViewModel) }
-            composable( TopLevelDestination.Collection.route ) { CollectionScreen() }
+            composable( TopLevelDestination.Collection.route ) { CollectionScreen(navController) }
+            composable(
+                route = "collection/{collectionId}",
+                arguments = listOf(
+                    navArgument("collectionId") {
+                        type = NavType.StringType
+                    }
+                )
+            ) {
+                val collectionId = it.arguments?.getString("collectionId")!!
+
+                CollectionDetail(
+                    collectionId = collectionId
+                )
+            }
         }
     }
 }

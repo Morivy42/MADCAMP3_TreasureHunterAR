@@ -9,10 +9,11 @@ import androidx.compose.ui.res.vectorResource
 
 @Composable
 fun CollectionDetail(
-
+    collectionId: String
 ){
     Column() {
         Text(text="Collection Title")
+        Text(text = collectionId)
         Image(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_launcher_foreground),
             contentDescription = "Sample Collection Image"
