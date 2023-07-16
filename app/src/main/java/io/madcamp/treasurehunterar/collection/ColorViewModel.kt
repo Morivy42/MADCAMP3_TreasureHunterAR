@@ -1,9 +1,10 @@
-package io.madcamp.treasurehunterar
+package io.madcamp.treasurehunterar.collection
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import io.madcamp.treasurehunterar.AR.MeshColor
 
 class ColorViewModel : ViewModel() {
 

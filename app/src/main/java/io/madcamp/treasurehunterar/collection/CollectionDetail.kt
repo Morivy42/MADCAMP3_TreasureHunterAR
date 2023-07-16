@@ -11,11 +11,10 @@ import io.madcamp.treasurehunterar.R
 
 @Composable
 fun CollectionDetail(
-    navController: NavController
-){
-    Column(
+    navController: NavController,
 
-    ) {
+){
+    Column() {
         Text(text="Collection Title")
         Image(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_launcher_foreground),

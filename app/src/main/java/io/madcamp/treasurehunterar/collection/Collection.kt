@@ -1,7 +1,7 @@
 package io.madcamp.treasurehunterar.collection
 
 data class Collection(
-    val id: String = "",
+    val id: Int = 0,
     val name: String = "",
     val shortDescription: String = "",
     val longDescription: String = "",
