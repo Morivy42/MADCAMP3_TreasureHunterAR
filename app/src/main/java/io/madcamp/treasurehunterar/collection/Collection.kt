@@ -6,7 +6,10 @@ data class Collection(
     val shortDescription: String = "",
     val longDescription: String = "",
     val imageUrl: String = "",
-)
+    val isFound: Boolean = false,
+) {
+
+}
 //
 //
 ///*

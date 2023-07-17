@@ -32,7 +32,7 @@ import java.util.concurrent.Executor
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun ARScreen(colorViewModel: ColorViewModel) {
+fun ARScreen(colorViewModel: ColorViewModel = ColorViewModel()) {
     Box(modifier = Modifier.fillMaxSize()) {
         val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
         if (cameraPermissionState.status.isGranted) {

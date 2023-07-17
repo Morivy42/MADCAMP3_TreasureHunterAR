@@ -1,37 +1,38 @@
-package io.madcamp.treasurehunterar
+package io.madcamp.treasurehunterar.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.ui.graphics.vector.ImageVector
+import io.madcamp.treasurehunterar.R
 
-enum class TopLevelDestination(
+sealed class NavBarItem(
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
     val iconTextId: Int,
     val titleTextId: Int,
     val route: String,
 ) {
-    Home(
-        selectedIcon = Icons.Filled.Home,
-        unselectedIcon = Icons.Default.Home,
-        iconTextId = R.string.home_icon,
-        titleTextId = R.string.app_name,
-        route = "home_screen",
-    ),
-    AR(
+    object Home : NavBarItem(
+            selectedIcon = Icons.Filled.Home,
+            unselectedIcon = Icons.Default.Home,
+            iconTextId = R.string.home_icon,
+            titleTextId = R.string.app_name,
+            route = "home_screen",
+    )
+    object AR : NavBarItem(
         selectedIcon = Icons.Filled.Face,
         unselectedIcon = Icons.Default.Face,
         iconTextId = R.string.ar_icon,
         titleTextId = R.string.app_name,
         route = "ar_screen",
-    ),
-    Collection(
+    )
+    object Collection: NavBarItem(
         selectedIcon = Icons.Filled.Place,
         unselectedIcon = Icons.Default.Place,
         iconTextId = R.string.collection,
         titleTextId = R.string.app_name,
         route = "collection_route",
-    ),
+    )
 }
