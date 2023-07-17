@@ -1,7 +1,7 @@
 package io.madcamp.treasurehunterar.collection
 
 data class Collection(
-    val id: Int = 0,
+    val collectionNum: Int = 0,
     val name: String = "",
     val shortDescription: String = "",
     val longDescription: String = "",
@@ -44,7 +44,7 @@ data class Collection(
 //)
 //data class TopicEntity(
 //    @PrimaryKey
-//    val id: String,
+//    val collectionNum: String,
 //    val name: String,
 //    val shortDescription: String,
 //    @ColumnInfo(defaultValue = "")
@@ -56,7 +56,7 @@ data class Collection(
 //)
 //
 //fun TopicEntity.asExternalModel() = Topic(
-//    id = id,
+//    collectionNum = collectionNum,
 //    name = name,
 //    shortDescription = shortDescription,
 //    longDescription = longDescription,

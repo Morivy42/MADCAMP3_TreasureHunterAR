@@ -1,40 +1,49 @@
 package io.madcamp.treasurehunterar.auth
 
 import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okio.IOException
+import retrofit2.HttpException
+import javax.inject.Inject
 
-class UserViewModel constructor(
-    savedStateHandle: SavedStateHandle,
-    userRepository: UserRepository
-) : ViewModel() {
-    private val userId: String = savedStateHandle["uid"] ?:
-    throw IllegalArgumentException("Missing user ID")
+sealed interface UserUiState {
+    data class Success(val Users: String) : UserUiState
+    object Error : UserUiState
+    object Loading : UserUiState
+}
 
-    private val _user = MutableLiveData<User>()
-    private val user = _user as LiveData<User>
+class UserViewModel : ViewModel() {
+    var userUiState : UserUiState by mutableStateOf(UserUiState.Loading)
+        private set
 
     init {
-        getUser()
+        getUsers()
     }
-
-    private fun getUser(): LiveData<User> {
+    private fun getUsers() {
         viewModelScope.launch {
-            try {
-                // Calling the repository is safe as it moves execution off
-                // the main thread
-                val user = UserApi.retrofitService.getUser(userId)
-                _user.value = user
-            } catch (error: Exception) {
-                // Show error message to user
-                Log.d("UserViewModel", error.toString())
+            userUiState = UserUiState.Loading
+            userUiState = try {
+                val userList = UserApi.retrofitService.getUsers()
+                UserUiState.Success(
+                    "Success: ${userList.size} Mars photos retrieved"
+                )
+            } catch (e: IOException) {
+                Log.d("GetUserException", e.toString())
+                UserUiState.Error
+            } catch (e: HttpException) {
+                Log.d("GetUserException", e.toString())
+                UserUiState.Error
             }
-
         }
-        return user
     }
 }
+

@@ -44,7 +44,7 @@ fun CollectionDetail(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text= "# " + collection.id + "\t" + collection.name,
+                        text= "# " + collection.collectionNum + "\t" + collection.name,
                         modifier = Modifier,
                     )
                 }
@@ -74,7 +74,7 @@ fun CollectionDetail(
 fun CollectionDetailPreview() {
     CollectionDetail(
         collection = Collection(
-            id = 1,
+            collectionNum = 1,
             name = "튀김소보로",
             shortDescription = "1번 컬렉션",
             longDescription = "1번 컬렉션입니다. 1번 컬렉션입니다. ",

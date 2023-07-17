@@ -51,7 +51,6 @@ private fun CollectionGrid(
     navController: NavController,
     modifier: Modifier = Modifier,
 ) {
-
     LazyVerticalGrid(
         columns = GridCells.Adaptive(100.dp),
         contentPadding = PaddingValues(10.dp),
@@ -65,8 +64,8 @@ private fun CollectionGrid(
                 collection = collection,
 
                 onCollectionCardClick = {
-                    Log.d("CollectionDetail", "In Grid" + collection.id)
-                    navController.navigate("collection_detail/" + "${collection.id}")}
+                    Log.d("CollectionDetail", "In Grid" + collection.collectionNum)
+                    navController.navigate("collection_detail/" + "${collection.collectionNum}")}
             )
         }
     }
@@ -80,7 +79,7 @@ fun CollectionCard(
     Box(
         modifier = Modifier.clickable(
             onClick = {
-                Log.d("CollectionDetail", "Collection Card Click!" + collection.id)
+                Log.d("CollectionDetail", "Collection Card Click!" + collection.collectionNum)
                 onCollectionCardClick(collection)
             }
         )
@@ -122,7 +121,7 @@ fun CollectionCard(
 fun CollectionCardPreview() {
     CollectionCard(
         collection = Collection(
-            id = 1,
+            collectionNum = 1,
             name = "튀김소보로",
             shortDescription = "성심당 튀김소보로",
             longDescription = "1980년 탄생 소보로, 앙금빵, 도넛의 3단 합체빵. 하나의 빵으로 3가지 맛을 즐기실 수 있는 성심당 No.1 튀김소보로",
@@ -133,28 +132,28 @@ fun CollectionCardPreview() {
 
 var collectionList: List<Collection> = listOf(
         Collection(
-            id = 1,
+            collectionNum = 1,
             name = "튀김소보로",
             shortDescription = "성심당 튀김소보로",
             longDescription = "1980년 탄생 소보로, 앙금빵, 도넛의 3단 합체빵. 하나의 빵으로 3가지 맛을 즐기실 수 있는 성심당 No.1 튀김소보로",
             imageUrl = "https://www.sungsimdangmall.co.kr/data/sungsimdang/goods/sungsimdang/big/IMG01.png"
         ),
         Collection(
-            id = 2,
+            collectionNum = 2,
             name = "튀소구마",
             shortDescription = "성심당 튀소구마",
             longDescription = "튀소35주년을 기념하여 탄생한 튀소 동생. 달콤한 고구마 크림으로 속을 가득 채운 튀소구마",
             imageUrl = "https://www.sungsimdangmall.co.kr/data/sungsimdang/goods/sungsimdang/big/IMG03.png"
         ),
         Collection(
-            id = 3,
+            collectionNum = 3,
             name = "초코튀소",
             shortDescription = "성심당 초코튀소",
             longDescription = "튀소 탄생 40주년을 기념하여 선보인 초코튀소는 달콤한 팥앙금을 가득 품은 바삭한 튀김소보로 위에 초콜릿 코팅을 입힌 완생의 빵 입니다.",
             imageUrl = "https://www.sungsimdangmall.co.kr/data/sungsimdang/goods/sungsimdang/big/202310454249038523284.jpg"
         ),
         Collection(
-            id = 4,
+            collectionNum = 4,
             name = "쑥떡앙빵",
             shortDescription = "성심당 쑥떡앙빵",
             longDescription = "앙금빵인 줄 알았다가 한잎 베어 물면 놀라는 앙꼬인 듯 아닌 듯 찹쌀에 알밤까지..",

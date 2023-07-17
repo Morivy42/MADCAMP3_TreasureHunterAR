@@ -29,7 +29,7 @@ fun NavGraphBuilder.collectionDetail(
         Log.d("CollectionDetail", "Collection Detail navGraphBuilder")
         CollectionDetail(
             collection = Collection(
-                id = 1,
+                collectionNum = 1,
                 name = "튀김소보로",
                 shortDescription = "성심당 튀김소보로",
                 longDescription = "1980년 탄생 소보로, 앙금빵, 도넛의 3단 합체빵. 하나의 빵으로 3가지 맛을 즐기실 수 있는 성심당 No.1 튀김소보로",

@@ -7,15 +7,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.madcamp.treasurehunterar.auth.User
-import io.madcamp.treasurehunterar.auth.UserRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CollectionViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    collectionsRepository: CollectionsRepository
+    collectionRepository: CollectionRepository
 ) : ViewModel() {
     private val collectionId: String = savedStateHandle["cid"] ?:
     throw IllegalArgumentException("Missing collection ID")
@@ -31,9 +29,9 @@ class CollectionViewModel @Inject constructor(
             try {
                 // Calling the repository is safe as it moves execution off
                 // the main thread
-                val collection = collectionsRepository.getCollectionById(collectionId)
+                val collection = collectionRepository.getCollectionById(collectionId)
                 _collection.value = collection
-                val collectionList = collectionsRepository.getCollectionList()
+                val collectionList = collectionRepository.getCollectionList()
                 _collectionList.value = collectionList
             } catch (error: Exception) {
                 // Show error message to user

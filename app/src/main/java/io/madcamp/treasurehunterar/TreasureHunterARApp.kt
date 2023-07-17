@@ -127,7 +127,7 @@ fun TreasureHunterARApp(colorViewModel: ColorViewModel) {
 ////                        contentDescription = null
 ////                    )
 ////                },
-//                label = { Text(stringResource(id = destination.iconTextId)) },
+//                label = { Text(stringResource(collectionNum = destination.iconTextId)) },
 //                modifier = Modifier,
 //            )
 //        }

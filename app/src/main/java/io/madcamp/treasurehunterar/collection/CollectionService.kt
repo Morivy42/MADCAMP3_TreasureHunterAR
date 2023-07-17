@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface CollectionService {
-    @GET("collection/{id}")
+    @GET("collection/{collectionNum}")
     suspend fun getCollectionById(@Path("id") id: String): Collection
 }
 
