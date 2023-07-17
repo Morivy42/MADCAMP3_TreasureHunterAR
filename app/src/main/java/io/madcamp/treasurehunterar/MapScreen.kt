@@ -1,18 +1,14 @@
 package io.madcamp.treasurehunterar
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
 import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.google.android.gms.maps.GoogleMapOptions
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapType
@@ -23,7 +19,7 @@ fun MapScreen(
 
 ) {
     var uiSettings by remember { mutableStateOf(MapUiSettings()) }
-    var properties by remember {
+    val properties by remember {
         mutableStateOf(MapProperties(mapType = MapType.SATELLITE))
     }
 

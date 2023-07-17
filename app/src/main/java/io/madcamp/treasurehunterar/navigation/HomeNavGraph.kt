@@ -7,7 +7,6 @@ import androidx.navigation.compose.navigation
 import io.madcamp.treasurehunterar.AR.ARScreen
 import io.madcamp.treasurehunterar.AR.ColorViewModel
 import io.madcamp.treasurehunterar.HomeScreen
-import io.madcamp.treasurehunterar.collection.CollectionRoute
 import io.madcamp.treasurehunterar.collection.collectionDetail
 import io.madcamp.treasurehunterar.collection.navigateToCollectionDetail
 
