@@ -8,7 +8,7 @@ sealed class Screen(val route: String) {
         fun passcollectionId(
             collectionId: Int = 0,
         ): String {
-            return "collection_screen?id=$collectionId"
+            return "collection_screen?collectionNum=$collectionId"
         }
     }
     object Login: Screen(route = "login_screen")
