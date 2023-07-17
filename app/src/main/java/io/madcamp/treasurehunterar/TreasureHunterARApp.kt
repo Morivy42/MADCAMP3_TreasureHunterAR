@@ -22,23 +22,20 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import io.madcamp.treasurehunterar.AR.ARScreen
 import io.madcamp.treasurehunterar.AR.ColorViewModel
-import io.madcamp.treasurehunterar.collection.Collection
 import io.madcamp.treasurehunterar.collection.CollectionDetail
 import io.madcamp.treasurehunterar.collection.CollectionScreen
-import io.madcamp.treasurehunterar.collection.collectionList
-import io.madcamp.treasurehunterar.navigation.NavBarItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TreasureHunterARApp(colorViewModel: ColorViewModel) {
     val navController = rememberNavController()
+    val destinations = listOf(
+        TopLevelDestination.Home,
+        TopLevelDestination.AR,
+        TopLevelDestination.Collection,
+    )
     Scaffold(
         bottomBar = {
-            val destinations = listOf(
-                NavBarItem.Home,
-                NavBarItem.AR,
-                NavBarItem.Collection,
-            )
             NavigationBar() {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
@@ -73,27 +70,23 @@ fun TreasureHunterARApp(colorViewModel: ColorViewModel) {
             }
         }
     ) { innerPadding ->
-        NavHost(
-            navController,
-            startDestination = NavBarItem.Home.route,
-            Modifier.padding(innerPadding)
-        ) {
-            composable(NavBarItem.Home.route) {
-                HomeScreen()
-            }
-            composable(NavBarItem.AR.route) {
-                ARScreen(colorViewModel = ColorViewModel())
-            }
-            composable(NavBarItem.Collection.route) {
-                CollectionScreen(navController)
-            }
+        NavHost(navController, startDestination = TopLevelDestination.Home.route, Modifier.padding(innerPadding)) {
+            composable( TopLevelDestination.Home.route ) { HomeScreen() }
+            composable( TopLevelDestination.AR.route ) { ARScreen(colorViewModel) }
+            composable( TopLevelDestination.Collection.route ) { CollectionScreen(navController) }
             composable(
-                "collection_detail/{collectionId}",
+                route = "collection/{collectionId}",
                 arguments = listOf(
-                    navArgument("collectionId") { type = NavType.IntType }
+                    navArgument("collectionId") {
+                        type = NavType.StringType
+                    }
                 )
-            ) { backStackEntry ->
-                CollectionDetail(collection = collectionList[backStackEntry.arguments?.getInt("collectionId")!! - 1])
+            ) {
+                val collectionId = it.arguments?.getString("collectionId")!!
+
+                CollectionDetail(
+                    navController
+                )
             }
         }
     }
@@ -127,14 +120,14 @@ fun TreasureHunterARApp(colorViewModel: ColorViewModel) {
 ////                        contentDescription = null
 ////                    )
 ////                },
-//                label = { Text(stringResource(collectionNum = destination.iconTextId)) },
+//                label = { Text(stringResource(id = destination.iconTextId)) },
 //                modifier = Modifier,
 //            )
 //        }
 //    }
 //}
 
-private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: NavBarItem) =
+private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) =
     this?.hierarchy?.any {
-        it.route?.contains(destination.route, true) ?: false
+        it.route?.contains(destination.name, true) ?: false
     } ?: false

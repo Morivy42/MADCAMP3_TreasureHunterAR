@@ -32,6 +32,6 @@ enum class TopLevelDestination(
         unselectedIcon = Icons.Default.Place,
         iconTextId = R.string.collection,
         titleTextId = R.string.app_name,
-        route = "collection_route",
+        route = "collection_screen",
     ),
 }

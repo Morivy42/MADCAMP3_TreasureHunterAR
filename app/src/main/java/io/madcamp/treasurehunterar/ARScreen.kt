@@ -1,4 +1,4 @@
-package io.madcamp.treasurehunterar.AR
+package io.madcamp.treasurehunterar
 
 import android.annotation.SuppressLint
 import android.util.Size
@@ -36,7 +36,7 @@ fun ARScreen(colorViewModel: ColorViewModel) {
     Box(modifier = Modifier.fillMaxSize()) {
         val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
         if (cameraPermissionState.status.isGranted) {
-            SimpleCameraPreview(PaletteAnalyzer { color -> colorViewModel.setCurrentColorInt(color)})
+            SimpleCameraPreview(PaletteAnalyzer {color -> colorViewModel.setCurrentColorInt(color)})
             DynamicPointMesh(Modifier.fillMaxSize(), colorViewModel.currentColor)
         } else {
             Column {
