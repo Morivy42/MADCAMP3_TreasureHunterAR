@@ -13,11 +13,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import io.madcamp.treasurehunterar.AR.ColorViewModel
-import io.madcamp.treasurehunterar.auth.UserViewModel
 import io.madcamp.treasurehunterar.ui.theme.TreasureHunterARTheme
 
 class MainActivity : ComponentActivity() {
-    private val userViewModel by viewModels<UserViewModel>()
     private val colorViewModel by viewModels<ColorViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
