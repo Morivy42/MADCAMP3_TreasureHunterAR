@@ -1,6 +1,9 @@
 package io.madcamp.treasurehunterar.collection
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,41 +12,66 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.RoundRect
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import io.madcamp.treasurehunterar.ui.theme.Yellow20
 
 @Composable
 internal fun CollectionRoute(
+    navController: NavController,
     modifier: Modifier = Modifier,
 ) {
-    val navController = rememberNavController()
     CollectionScreen(
         navController = navController,
         modifier = modifier,
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CollectionScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
 ) {
-    CollectionGrid(
-        navController = navController,
-        modifier,
-    )
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Collections") },
+                modifier = modifier,
+            )
+        }
+    ) { paddingValues ->
+        CollectionGrid(
+            navController = navController,
+            modifier.padding(paddingValues),
+        )
+    }
 }
 
 @Composable
@@ -52,9 +80,9 @@ private fun CollectionGrid(
     modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(100.dp),
+        columns = GridCells.FixedSize(100.dp),
         contentPadding = PaddingValues(10.dp),
-        horizontalArrangement = Arrangement.spacedBy(24.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly,
         verticalArrangement = Arrangement.spacedBy(24.dp),
         modifier = modifier
             .fillMaxSize()
@@ -76,33 +104,52 @@ fun CollectionCard(
     collection: Collection,
     onCollectionCardClick: (Collection) -> Unit
 ) {
+
     Box(
-        modifier = Modifier.clickable(
-            onClick = {
-                Log.d("CollectionDetail", "Collection Card Click!" + collection.collectionNum)
-                onCollectionCardClick(collection)
-            }
-        )
+        modifier = Modifier
+            .size(width = 80.dp, height = 100.dp)
+            .clip(shape = RoundedCornerShape(size = 12.dp))
+            .shadow(5.dp)
+            .background(Yellow20, RectangleShape)
+//            .border(border = BorderStroke(2.dp, Color.Black), shape = RoundedCornerShape(size = 12.dp))
+            .clickable(
+                onClick = {
+                    Log.d("CollectionDetail", "Collection Card Click!" + collection.collectionNum)
+                    onCollectionCardClick(collection)
+                }
+            )
     ) {
             Column(
-                modifier = Modifier,
+                modifier = Modifier
+                    .padding(10.dp)
+                    .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
+
             ) {
+//                val colorFilter = PorterDuffColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
                 AsyncImage(
                     model = collection.imageUrl,
                     contentDescription = null,
                     modifier = Modifier
                         .clip(CircleShape)
                         .padding(5.dp)
-                        .size(50.dp)
-//            contentScale = ContentScale.FillBounds
+                        .size(40.dp),
+//                    colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
+                    colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToScale(0.3f, 0.3f, 0.3f, 0.5f) })
                 )
                 Text(
-                    text = collection.name
+                    text = collection.name,
+                    modifier = Modifier.sizeIn(minWidth = 70.dp),
+                    fontSize = 11.sp,
+                    textAlign = TextAlign.Center,
+                    maxLines = 1,
                 )
                 Text(
                     text = collection.shortDescription,
-                    modifier = Modifier,
+                    modifier = Modifier.sizeIn(minWidth = 80.dp),
+                    fontSize = 9.sp,
+                    textAlign = TextAlign.Center,
+                    maxLines = 1,
                 )
             }
         }
