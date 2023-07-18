@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace 'io.madcamp.treasurehunterar'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "io.madcamp.treasurehunterar"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -112,5 +112,6 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation 'com.google.guava:guava:27.0.1-android'
     implementation("com.google.firebase:firebase-auth")
+    implementation("androidx.compose.foundation:foundation:1.6.0-alpha01")
 
 }
