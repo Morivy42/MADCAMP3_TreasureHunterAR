@@ -1,4 +1,4 @@
-package io.madcamp.treasurehunterar.ui.theme
+package io.madcamp.treasurehunterar.AR.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
