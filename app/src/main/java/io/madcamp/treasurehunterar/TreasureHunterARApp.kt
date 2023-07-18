@@ -20,23 +20,21 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import io.madcamp.treasurehunterar.AR.ARScreen
-import io.madcamp.treasurehunterar.AR.ColorViewModel
 import io.madcamp.treasurehunterar.collection.CollectionDetail
 import io.madcamp.treasurehunterar.collection.CollectionRoute
-import io.madcamp.treasurehunterar.collection.CollectionScreen
 import io.madcamp.treasurehunterar.collection.collectionList
+import io.madcamp.treasurehunterar.map.MapScreen
 import io.madcamp.treasurehunterar.navigation.NavBarItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TreasureHunterARApp(colorViewModel: ColorViewModel) {
+fun TreasureHunterARApp() {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
             val destinations = listOf(
                 NavBarItem.Home,
-                NavBarItem.AR,
+                NavBarItem.Map,
                 NavBarItem.Collection,
             )
             NavigationBar() {
@@ -81,8 +79,8 @@ fun TreasureHunterARApp(colorViewModel: ColorViewModel) {
             composable(NavBarItem.Home.route) {
                 HomeScreen()
             }
-            composable(NavBarItem.AR.route) {
-                ARScreen(colorViewModel = ColorViewModel())
+            composable(NavBarItem.Map.route) {
+                MapScreen()
             }
             composable(NavBarItem.Collection.route) {
                 CollectionRoute(navController)
@@ -98,41 +96,6 @@ fun TreasureHunterARApp(colorViewModel: ColorViewModel) {
         }
     }
 }
-
-
-
-
-//@Composable
-//private fun TharBottomBar (
-//    destinations: List<TopLevelDestination>,
-//    onNavigateToDestination: (TopLevelDestination) -> Unit,
-//    currentDestination: NavDestination?,
-//    modifier: Modifier = Modifier,
-//) {
-//    NavigationBar {
-//        destinations.forEach {destination ->
-//            val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
-//            NavigationBarItem(
-//                selected = selected,
-//                onClick = { onNavigateToDestination(destination) },
-//                icon = {
-//                    Icon(
-//                        imageVector = destination.unselectedIcon,
-//                        contentDescription = null
-//                    )
-//                },
-////                selectedIcon = {
-////                    Icon(
-////                        imageVector = destination.unselectedIcon,
-////                        contentDescription = null
-////                    )
-////                },
-//                label = { Text(stringResource(collectionNum = destination.iconTextId)) },
-//                modifier = Modifier,
-//            )
-//        }
-//    }
-//}
 
 private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: NavBarItem) =
     this?.hierarchy?.any {

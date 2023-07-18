@@ -1,4 +1,4 @@
-package io.madcamp.treasurehunterar.AR.theme
+package io.madcamp.treasurehunterar.theme
 
 import androidx.compose.ui.graphics.Color
 

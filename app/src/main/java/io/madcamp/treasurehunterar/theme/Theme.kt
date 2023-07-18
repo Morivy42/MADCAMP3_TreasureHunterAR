@@ -1,4 +1,4 @@
-package io.madcamp.treasurehunterar.AR.theme
+package io.madcamp.treasurehunterar.theme
 
 import android.app.Activity
 import android.os.Build

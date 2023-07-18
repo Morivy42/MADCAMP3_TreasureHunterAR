@@ -14,9 +14,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.madcamp.treasurehunterar.AR.ColorViewModel
 import io.madcamp.treasurehunterar.auth.UserViewModel
-import io.madcamp.treasurehunterar.AR.theme.TreasureHunterARTheme
+import io.madcamp.treasurehunterar.theme.TreasureHunterARTheme
 
 class MainActivity : ComponentActivity() {
     private val userViewModel by viewModels<UserViewModel>()
