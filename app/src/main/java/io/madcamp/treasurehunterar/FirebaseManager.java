@@ -88,10 +88,11 @@ class FirebaseManager {
         new Transaction.Handler() {
           @Override
           public Transaction.Result doTransaction(MutableData currentData) {
-            Long nextCode = Long.valueOf(1);
+            Long nextCode = 1L;
             Object currVal = currentData.getValue();
             if (currVal != null) {
-              Long lastCode = Long.valueOf(currVal.toString());
+              long lastCode;
+              lastCode = Long.parseLong(currVal.toString());
               nextCode = lastCode + 1;
             }
             currentData.setValue(nextCode);

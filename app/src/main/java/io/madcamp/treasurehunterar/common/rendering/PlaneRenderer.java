@@ -309,12 +309,7 @@ public class PlaneRenderer {
     }
     Collections.sort(
         sortedPlanes,
-        new Comparator<SortablePlane>() {
-          @Override
-          public int compare(SortablePlane a, SortablePlane b) {
-            return Float.compare(b.distance, a.distance);
-          }
-        });
+            (a, b) -> Float.compare(b.distance, a.distance));
 
     float[] cameraView = new float[16];
     cameraPose.inverse().toMatrix(cameraView, 0);
@@ -366,10 +361,10 @@ public class PlaneRenderer {
       float angleRadians = planeIndex * 0.144f;
       float uScale = DOTS_PER_METER;
       float vScale = DOTS_PER_METER * EQUILATERAL_TRIANGLE_SCALE;
-      planeAngleUvMatrix[0] = +(float) Math.cos(angleRadians) * uScale;
+      planeAngleUvMatrix[0] = (float) Math.cos(angleRadians) * uScale;
       planeAngleUvMatrix[1] = -(float) Math.sin(angleRadians) * vScale;
-      planeAngleUvMatrix[2] = +(float) Math.sin(angleRadians) * uScale;
-      planeAngleUvMatrix[3] = +(float) Math.cos(angleRadians) * vScale;
+      planeAngleUvMatrix[2] = (float) Math.sin(angleRadians) * uScale;
+      planeAngleUvMatrix[3] = (float) Math.cos(angleRadians) * vScale;
       GLES20.glUniformMatrix2fv(planeUvMatrixUniform, 1, false, planeAngleUvMatrix, 0);
 
       draw(cameraView, cameraPerspective, normal);

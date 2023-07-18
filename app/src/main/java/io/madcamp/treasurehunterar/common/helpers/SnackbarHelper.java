@@ -29,7 +29,7 @@ import com.google.android.material.snackbar.Snackbar;
 public final class SnackbarHelper {
   private static final int BACKGROUND_COLOR = 0xbf323232;
   private Snackbar messageSnackbar;
-  private enum DismissBehavior { HIDE, SHOW, FINISH };
+  private enum DismissBehavior { HIDE, SHOW, FINISH }
   private int maxLines = 2;
   private String lastMessage = "";
   private View snackbarView;
@@ -81,12 +81,7 @@ public final class SnackbarHelper {
     Snackbar messageSnackbarToHide = messageSnackbar;
     messageSnackbar = null;
     activity.runOnUiThread(
-        new Runnable() {
-          @Override
-          public void run() {
-            messageSnackbarToHide.dismiss();
-          }
-        });
+            () -> messageSnackbarToHide.dismiss());
   }
 
   public void setMaxLines(int lines) {
@@ -120,12 +115,7 @@ public final class SnackbarHelper {
             if (dismissBehavior != DismissBehavior.HIDE && duration == Snackbar.LENGTH_INDEFINITE) {
               messageSnackbar.setAction(
                   "Dismiss",
-                  new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                      messageSnackbar.dismiss();
-                    }
-                  });
+                      v -> messageSnackbar.dismiss());
               if (dismissBehavior == DismissBehavior.FINISH) {
                 messageSnackbar.addCallback(
                     new BaseTransientBottomBar.BaseCallback<Snackbar>() {

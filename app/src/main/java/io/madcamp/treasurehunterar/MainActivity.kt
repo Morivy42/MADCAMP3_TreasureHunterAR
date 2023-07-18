@@ -7,7 +7,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -37,13 +39,16 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     TreasureHunterARApp(colorViewModel)
-                    Button(
-                        onClick = { startJavaActivity() },
-                        modifier = Modifier.size(100.dp)
-                    ) {
-                        Text(text = "Test")
-                    }
+
+
 //                RootNavGraph(navController = rememberNavController())
+                }
+                FloatingActionButton(
+                    onClick = { startJavaActivity() },
+                    modifier = Modifier.size(50.dp),
+                    shape = CircleShape
+                ) {
+                    Text(text = "Test")
                 }
             }
         }

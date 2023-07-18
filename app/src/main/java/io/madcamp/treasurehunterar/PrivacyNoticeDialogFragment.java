@@ -78,25 +78,19 @@ public class PrivacyNoticeDialogFragment extends DialogFragment {
         .setMessage("진행하시겠습니까?")
         .setPositiveButton(
             "확인",
-            new DialogInterface.OnClickListener() {
-              @Override
-              public void onClick(DialogInterface dialog, int id) {
-                // Send the positive button event back to the host activity
-                noticeDialogListener.onDialogPositiveClick(PrivacyNoticeDialogFragment.this);
-                hostResolveListener.onPrivacyNoticeReceived();
-              }
-            })
+                (dialog, id) -> {
+                  // Send the positive button event back to the host activity
+                  noticeDialogListener.onDialogPositiveClick(PrivacyNoticeDialogFragment.this);
+                  hostResolveListener.onPrivacyNoticeReceived();
+                })
         .setNegativeButton(
             "취소",
-            new DialogInterface.OnClickListener() {
-              @Override
-              public void onClick(DialogInterface dialog, int id) {
-                Intent browserIntent =
-                    new Intent(
-                        Intent.ACTION_VIEW, Uri.parse("5"));
-                getActivity().startActivity(browserIntent);
-              }
-            });
+                (dialog, id) -> {
+                  Intent browserIntent =
+                      new Intent(
+                          Intent.ACTION_VIEW, Uri.parse("5"));
+                  getActivity().startActivity(browserIntent);
+                });
     return builder.create();
   }
 }
