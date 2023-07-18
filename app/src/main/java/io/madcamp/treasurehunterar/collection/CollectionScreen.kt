@@ -18,7 +18,11 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,38 +33,45 @@ import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
-import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import io.madcamp.treasurehunterar.ui.theme.Yellow20
 
 @Composable
 internal fun CollectionRoute(
+    navController: NavController,
     modifier: Modifier = Modifier,
 ) {
-    val navController = rememberNavController()
     CollectionScreen(
         navController = navController,
         modifier = modifier,
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CollectionScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
 ) {
-    CollectionGrid(
-        navController = navController,
-        modifier,
-    )
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Collections") },
+                modifier = modifier,
+            )
+        }
+    ) { paddingValues ->
+        CollectionGrid(
+            navController = navController,
+            modifier.padding(paddingValues),
+        )
+    }
 }
 
 @Composable

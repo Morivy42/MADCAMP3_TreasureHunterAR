@@ -23,6 +23,7 @@ import androidx.navigation.navArgument
 import io.madcamp.treasurehunterar.AR.ARScreen
 import io.madcamp.treasurehunterar.AR.ColorViewModel
 import io.madcamp.treasurehunterar.collection.CollectionDetail
+import io.madcamp.treasurehunterar.collection.CollectionRoute
 import io.madcamp.treasurehunterar.collection.CollectionScreen
 import io.madcamp.treasurehunterar.collection.collectionList
 import io.madcamp.treasurehunterar.navigation.NavBarItem
@@ -84,7 +85,7 @@ fun TreasureHunterARApp(colorViewModel: ColorViewModel) {
                 ARScreen(colorViewModel = ColorViewModel())
             }
             composable(NavBarItem.Collection.route) {
-                CollectionScreen(navController)
+                CollectionRoute(navController)
             }
             composable(
                 "collection_detail/{collectionId}",
