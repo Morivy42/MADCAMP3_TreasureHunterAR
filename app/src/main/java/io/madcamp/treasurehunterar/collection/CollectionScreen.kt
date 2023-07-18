@@ -101,9 +101,13 @@ private fun CollectionGrid(
 @Composable
 fun CollectionCard(
     collection: Collection,
-    onCollectionCardClick: (Collection) -> Unit
+    onCollectionCardClick: (Collection) -> Unit,
 ) {
-
+    val colorFilter = if (!collection.isFound) {
+        ColorFilter.colorMatrix(ColorMatrix().apply { setToScale(0.3f, 0.3f, 0.3f, 0.5f) })
+    } else {
+        null
+    }
     Box(
         modifier = Modifier
             .size(width = 80.dp, height = 100.dp)
@@ -134,7 +138,7 @@ fun CollectionCard(
                         .padding(5.dp)
                         .size(40.dp),
 //                    colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
-                    colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToScale(0.3f, 0.3f, 0.3f, 0.5f) })
+                    colorFilter = colorFilter
                 )
                 Text(
                     text = collection.name,

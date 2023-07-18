@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.madcamp.treasurehunterar;
+package io.madcamp.treasurehunterar.treasure;
 
 import android.content.Context;
 import android.util.Log;

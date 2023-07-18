@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package io.madcamp.treasurehunterar;
+package io.madcamp.treasurehunterar.treasure;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
+
+import io.madcamp.treasurehunterar.R;
 
 /** A DialogFragment for the Privacy Notice Dialog Box. */
 public class PrivacyNoticeDialogFragment extends DialogFragment {

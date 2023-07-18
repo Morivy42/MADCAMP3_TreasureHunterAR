@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.madcamp.treasurehunterar;
+package io.madcamp.treasurehunterar.treasure;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -27,6 +27,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.common.base.Preconditions;
+
+import io.madcamp.treasurehunterar.R;
 
 /** A DialogFragment for the Resolve Dialog Box. */
 public class ResolveDialogFragment extends DialogFragment {

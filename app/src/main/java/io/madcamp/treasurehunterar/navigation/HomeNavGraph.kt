@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import io.madcamp.treasurehunterar.HomeScreen
+import io.madcamp.treasurehunterar.collection.CollectionScreen
 import io.madcamp.treasurehunterar.collection.collectionDetail
 import io.madcamp.treasurehunterar.collection.navigateToCollectionDetail
 

@@ -24,10 +24,38 @@ class CollectionViewModel @Inject constructor(
     private val _collectionList = MutableLiveData<List<Collection>>()
     val collectionList = _collectionList as LiveData<List<Collection>>
 
+    private val _updateResult = MutableLiveData<Boolean>()
+    val updateResult: LiveData<Boolean> = _updateResult
 
+    init {
+        viewModelScope.launch {
+            try {
+                // Calling the repository is safe as it moves execution off
+                // the main thread
+                val collection = collectionRepository.getCollectionById(collectionId)
+                _collection.value = collection
+                val collectionList = collectionRepository.getCollectionList()
+                _collectionList.value = collectionList
+            } catch (error: Exception) {
+                // Show error message to user
+                Log.d("CollectionViewModel", error.toString())
+            }
 
+        }
+    }
+/*
+    fun updateCollectionList(item: String) {
+        val currentList = _collectionList.value?.toMutableList()
+        currentList?.find { it.name == item }?.let {
+            it.copy(isFound = true)
+            _updateResult.value = true // Update successful
+            _collectionList.value = currentList // Update the collectionList with the modified list
+        } ?: run {
+            _updateResult.value = false // Item not found, update failed
+        }
+    }
+ */
 }
-
 
 //class DemoScreenViewModel : ViewModel() {
 //    sealed class State {
