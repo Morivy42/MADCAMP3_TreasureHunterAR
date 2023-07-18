@@ -24,21 +24,33 @@ class CollectionViewModel @Inject constructor(
     private val _collectionList = MutableLiveData<List<Collection>>()
     val collectionList = _collectionList as LiveData<List<Collection>>
 
-    init {
-        viewModelScope.launch {
-            try {
-                // Calling the repository is safe as it moves execution off
-                // the main thread
-                val collection = collectionRepository.getCollectionById(collectionId)
-                _collection.value = collection
-                val collectionList = collectionRepository.getCollectionList()
-                _collectionList.value = collectionList
-            } catch (error: Exception) {
-                // Show error message to user
-                Log.d("CollectionViewModel", error.toString())
-            }
 
-        }
-    }
 
 }
+
+
+//class DemoScreenViewModel : ViewModel() {
+//    sealed class State {
+//        object Loading: State()
+//        data class Data(val data: String): State()
+//    }
+//
+//    private var _state = MutableStateFlow<State>(State.Loading)
+//    val state = _state.asStateFlow()
+//
+//    init {
+//        viewModelScope.launch {
+//            while (isActive) {
+//                val data = makeDataLoadCallOnEntry()
+//                _state.value = State.Data(data)
+//                // wait one minute and repeat your request
+//                delay(60 * 1000L)
+//            }
+//        }
+//    }
+//
+//    suspend fun makeDataLoadCallOnEntry(): String {
+//        delay(1000)
+//        return "Hello world"
+//    }
+//}

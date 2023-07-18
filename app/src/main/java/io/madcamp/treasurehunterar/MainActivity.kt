@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import io.madcamp.treasurehunterar.AR.ColorViewModel
 import io.madcamp.treasurehunterar.auth.UserViewModel
 import io.madcamp.treasurehunterar.AR.theme.TreasureHunterARTheme
@@ -50,6 +51,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Text(text = "Test")
                 }
+//                SplashScreen(navController = rememberNavController())
             }
         }
     }
