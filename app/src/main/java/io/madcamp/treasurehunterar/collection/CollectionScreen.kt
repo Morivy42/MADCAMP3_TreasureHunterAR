@@ -40,7 +40,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import io.madcamp.treasurehunterar.ui.theme.Yellow20
 
 @Composable
 internal fun CollectionRoute(
@@ -110,7 +109,7 @@ fun CollectionCard(
             .size(width = 80.dp, height = 100.dp)
             .clip(shape = RoundedCornerShape(size = 12.dp))
             .shadow(5.dp)
-            .background(Yellow20, RectangleShape)
+            .background(Color.Yellow, RectangleShape)
 //            .border(border = BorderStroke(2.dp, Color.Black), shape = RoundedCornerShape(size = 12.dp))
             .clickable(
                 onClick = {

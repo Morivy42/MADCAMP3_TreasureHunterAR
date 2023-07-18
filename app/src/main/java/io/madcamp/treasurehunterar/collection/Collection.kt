@@ -1,5 +1,6 @@
 package io.madcamp.treasurehunterar.collection
 
+
 data class Collection(
     val collectionNum: Int = 0,
     val name: String = "",
@@ -7,8 +8,25 @@ data class Collection(
     val longDescription: String = "",
     val imageUrl: String = "",
     val isFound: Boolean = false,
-) {
+)
 
+data class CollectionAPIEntity(
+    val collection_id: Int,
+    val collection_name: String,
+    val short_description: String,
+    val long_description: String,
+    val imageUrl: String,
+)
+
+fun CollectionAPIEntity.toCollection(): Collection {
+    return Collection(
+        collectionNum = collection_id,
+        name = collection_name,
+        short_description,
+        long_description,
+        imageUrl,
+        isFound = false,
+    )
 }
 //
 //

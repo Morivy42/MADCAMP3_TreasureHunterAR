@@ -1,5 +1,6 @@
 package io.madcamp.treasurehunterar
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -28,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -43,6 +46,7 @@ import io.madcamp.treasurehunterar.auth.UserUiState
 @Preview
 @Composable
 fun HomeScreen() {
+    val ctx = LocalContext.current.applicationContext
 //    Column {
 //        Text(text = "Home Screen")
 //        val userViewModel: UserViewModel = viewModel()
@@ -56,6 +60,14 @@ fun HomeScreen() {
             RegionCard()
             RegionCard()
         }
+//        Button(
+//            onClick = {
+//                val intent = Intent(ctx, CloudAnchorActivity::class.java)
+//                ctx.startActivity(intent)
+//            }
+//        ) {
+//            Text(text = "Test")
+//        }
     }
 //    MapScreen()
 }
