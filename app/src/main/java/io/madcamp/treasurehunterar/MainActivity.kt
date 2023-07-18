@@ -19,7 +19,6 @@ import io.madcamp.treasurehunterar.theme.TreasureHunterARTheme
 
 class MainActivity : ComponentActivity() {
     private val userViewModel by viewModels<UserViewModel>()
-    private val colorViewModel by viewModels<ColorViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,14 +33,18 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TreasureHunterARApp(colorViewModel)
+                    TreasureHunterARApp()
 //                RootNavGraph(navController = rememberNavController())
                     Box {
                         HorizontalDraggableSample(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .align(Alignment.BottomCenter)
-                                .padding(bottom = 80.dp),
+                                .padding(
+                                    start = 30.dp,
+                                    end = 30.dp,
+                                    bottom = 120.dp
+                                ),
                             onFABClick = { startJavaActivity() }
                         )
                     }

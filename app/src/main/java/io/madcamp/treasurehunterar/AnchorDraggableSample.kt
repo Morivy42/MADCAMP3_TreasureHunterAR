@@ -10,7 +10,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -112,7 +115,7 @@ fun VerticalDraggableSample(
             animationSpec = animationSpec,
         )
     }
-    val contentSize = 80.dp
+    val contentSize = 50.dp
     val contentSizePx = with(density) { contentSize.toPx() }
     Box(
         modifier
@@ -154,6 +157,10 @@ fun DraggableContent(
         modifier = modifier,
         shape = CircleShape
     ) {
-        Text(text = "Test")
+        Icon(
+            imageVector = Icons.Default.Search,
+            contentDescription = "AR FAB"
+        )
+
     }
 }
