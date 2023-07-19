@@ -23,6 +23,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -54,6 +55,7 @@ fun HomeScreen(
     navController: NavController
 ) {
     Column(
+        Modifier.padding(10.dp),
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         //ProfileCard()
@@ -74,7 +76,9 @@ fun HintCardList(
       // HintCard(navController = navController, 0,)
        // HintCard(navController = navController, markerNum = 0,)
       //HintCard(navController = navController, markerNum = 0,)
-    LazyColumn() {
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(5.dp)
+    ) {
         itemsIndexed(kaistMarkerList) { index, it ->
             HintCard(navController = navController, markerNum = index, it)
         }
@@ -106,7 +110,7 @@ fun HintCard(
     }
 }
 
-
+@Preview
 @Composable
 fun RegionRecommendationRow() {
     val dataItems = listOf(
@@ -116,7 +120,10 @@ fun RegionRecommendationRow() {
         RegionData(R.drawable.subway, "서브웨이"),
         RegionData(R.drawable.kaimaru, "카이마루"),
     )
-    LazyRow(contentPadding = PaddingValues(horizontal = 5.dp)) {
+    LazyRow(
+        contentPadding = PaddingValues(horizontal = 5.dp),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
             items(dataItems.size) { index ->
                 val dataItem = dataItems[index]
                 RegionCard(data = dataItem)
