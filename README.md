@@ -25,7 +25,7 @@ Target Device: Galaxy S7
 
 ## Tab 1. Location & Hints
 
-![2](https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/c559031d-bb97-4387-8004-fa189743410f)
+<img width="194" alt="Tab1-2" src="https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/c559031d-bb97-4387-8004-fa189743410f">
 
 
 Jetpack compose 내의 기능들을 활용해 유저들이 보물을 숨긴 위치와 힌트를 제공한다. 스와이프하여 전체 목록을 확인할 수 있다.
@@ -35,7 +35,7 @@ Jetpack compose 내의 기능들을 활용해 유저들이 보물을 숨긴 위�
 
 ## Tab 2. Map
 
-![4](https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/7eebf266-6124-41e0-8be9-8e993e5d6167)
+<img width="194" alt="Tab1-2" src="https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/7eebf266-6124-41e0-8be9-8e993e5d6167">
 
 
  구글맵 api를 사용해 위치 권한을 받아오면 내 위치와 보물이 숨겨진 장소들의 마커를 확인할 수 있다. 마커를 탭하면 해당 마커의 힌트를 볼 수 있다.
@@ -43,7 +43,7 @@ Jetpack compose 내의 기능들을 활용해 유저들이 보물을 숨긴 위�
 
 ## Tab 3. Collection
 
-![3](https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/250e6196-48f2-47d3-bc1a-223d71c9b813)
+<img width="194" alt="Tab1-2" src="https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/250e6196-48f2-47d3-bc1a-223d71c9b813">
 
 
 보물 획득 개수를 progress bar로 보여주며, 획득 가능한 전체 collection 목록을 확인할 수 있다. 
@@ -52,10 +52,10 @@ Jetpack compose 내의 기능들을 활용해 유저들이 보물을 숨긴 위�
 
 ## Tab 0. Treasure AR
 
-![1](https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/d02e63a3-24fd-4ef9-889f-08c20493f6e8
-![5](https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/2aca4b4e-601f-4ee7-b0b0-d0b97733226f)
+<img width="194" alt="Tab1-2" src="https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/d02e63a3-24fd-4ef9-889f-08c20493f6e8">
+<img width="194" alt="Tab1-2" src="https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/2aca4b4e-601f-4ee7-b0b0-d0b97733226f">
 )
-![6](https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/088f9409-c0c4-4a32-a34c-0ef230dbaeae)
+<img width="194" alt="Tab1-2" src="https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/088f9409-c0c4-4a32-a34c-0ef230dbaeae">
 
 
 가운데 돋보기 버튼을 누르면 AR 화면으로 이동한다. 버튼은 좌우로 자유로운 이동이 가능하다.
