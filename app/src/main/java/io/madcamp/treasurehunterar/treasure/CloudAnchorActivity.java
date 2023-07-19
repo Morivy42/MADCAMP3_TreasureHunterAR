@@ -53,6 +53,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import io.madcamp.treasurehunterar.R;
+import io.madcamp.treasurehunterar.collection.CollectionApi;
 import io.madcamp.treasurehunterar.common.helpers.CameraPermissionHelper;
 import io.madcamp.treasurehunterar.common.helpers.DisplayRotationHelper;
 import io.madcamp.treasurehunterar.common.helpers.FullScreenHelper;
@@ -63,6 +64,11 @@ import io.madcamp.treasurehunterar.common.rendering.ObjectRenderer;
 import io.madcamp.treasurehunterar.common.rendering.PlaneRenderer;
 import io.madcamp.treasurehunterar.common.rendering.PointCloudRenderer;
 import io.madcamp.treasurehunterar.treasure.PrivacyNoticeDialogFragment.HostResolveListener;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class CloudAnchorActivity extends AppCompatActivity
@@ -122,9 +128,22 @@ public class CloudAnchorActivity extends AppCompatActivity
   TextView scoreText;
   private int score;
 
+  // Retrofit
+  private static final String BASE_URL = "http://172.10.5.178";
+  private CollectionService collectionService;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    //Retrofit
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    collectionService = retrofit.create(CollectionService.class);
+
     setContentView(R.layout.activity_main);
     surfaceView = findViewById(R.id.surfaceview);
     displayRotationHelper = new DisplayRotationHelper(this);
@@ -300,7 +319,7 @@ public class CloudAnchorActivity extends AppCompatActivity
   }
 
   private void showSuccessDialog() {
-    String[] randomItems = {"튀김소보로", "튀소구마", "초코튀소", "쑥떡양빵"};
+    String[] randomItems = {"튀김소보로", "튀소구마", "초코튀소", "쑥떡양빵", "넙죽이 in 오리가운", "넙죽이 in 맨투맨", "넙죽이 in 학위복"};
     Random random = new Random();
     int randomIndex = random.nextInt(randomItems.length);
     String randomElement = randomItems[randomIndex];
@@ -322,6 +341,7 @@ public class CloudAnchorActivity extends AppCompatActivity
       updateItemIsFound(randomIndex + 1);
       AlertDialog.Builder itemBuilder = new AlertDialog.Builder(CloudAnchorActivity.this);
       itemBuilder.setMessage("도감에 추가됩니다");
+      sendCollectionFoundRequest(String.valueOf(randomIndex + 1));
       itemBuilder.setTitle(randomElement + finalTemp + " 찾았다!");
       itemBuilder.setCancelable(true);
       AlertDialog alert = itemBuilder.create();
@@ -696,5 +716,34 @@ public class CloudAnchorActivity extends AppCompatActivity
       throw new AssertionError("Could not save");
     }
     createSession();
+  }
+
+  private void sendCollectionFoundRequest(String collectionNum) {
+    Call<Object> call = collectionService.collectionFound(collectionNum);
+
+    call.enqueue(new Callback<Object>() {
+      @Override
+      public void onResponse(Call<Object> call, Response<Object> response) {
+        if (response.isSuccessful()) {
+          // 요청 성공
+          showMessage("요청 성공");
+        } else {
+          // 요청 실패
+          showMessage("response 요청 실패 response" + response.body() + response.errorBody());
+        }
+      }
+
+      @Override
+      public void onFailure(Call<Object> call, Throwable t) {
+        // 요청 실패
+        showMessage(t.getMessage());
+      }
+
+    });
+  }
+  private void showMessage(String message) {
+    // 메시지를 출력하는 로직을 구현합니다.
+    // 예시로 간단히 Toast 메시지를 출력하도록 작성하였습니다.
+    Toast.makeText(CloudAnchorActivity.this, message, Toast.LENGTH_LONG).show();
   }
 }

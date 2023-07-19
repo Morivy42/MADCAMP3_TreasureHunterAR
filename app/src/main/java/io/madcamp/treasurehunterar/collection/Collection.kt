@@ -1,7 +1,15 @@
 package io.madcamp.treasurehunterar.collection
 
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import kotlin.random.Random
 
 
@@ -17,8 +25,25 @@ data class Collection(
     val longDescription: String = "????? ????? ?????",
     @SerialName("imageUrl")
     val imageUrl: String = "https://static.turbosquid.com/Preview/001290/167/LA/_D.jpg",
-    val isFound: Boolean = Random.nextBoolean(),
-)
+    @Serializable(with = BooleanAsIntSerializer::class)
+    @SerialName("isFound")
+    val isFound: Boolean = false,
+) {
+    @OptIn(ExperimentalSerializationApi::class)
+    @Serializer(forClass = Boolean::class)
+    object BooleanAsIntSerializer : KSerializer<Boolean> {
+        override val descriptor: SerialDescriptor =
+            PrimitiveSerialDescriptor("BooleanAsIntSerializer", PrimitiveKind.INT)
+
+        override fun serialize(encoder: Encoder, value: Boolean) {
+            encoder.encodeInt(if (value) 1 else 0)
+        }
+
+        override fun deserialize(decoder: Decoder): Boolean {
+            return decoder.decodeInt() != 0
+        }
+    }
+}
 
 @Serializable
 data class CollectionEntity(
