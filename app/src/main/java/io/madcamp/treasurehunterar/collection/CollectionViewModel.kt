@@ -15,7 +15,7 @@ sealed interface CollectionUiState {
     object Error : CollectionUiState
     object Loading : CollectionUiState
 }
-class CollectionViewModel () : ViewModel() {
+class CollectionViewModel : ViewModel() {
 
     var collectionUiState : CollectionUiState by mutableStateOf(CollectionUiState.Loading)
 

@@ -1,8 +1,5 @@
 package io.madcamp.treasurehunterar
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Region
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,9 +18,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -31,15 +26,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -172,101 +162,101 @@ fun ProfileCard() {
     }
 
 }
-
-@Composable
-fun UsersList(
-    userUiState: UserUiState,
-    modifier: Modifier = Modifier
-) {
-//    val userViewModel: UserViewModel = viewModel()
-    when (userUiState) {
-        is UserUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
-        is UserUiState.Success -> ResultScreen(
-            userUiState.Users
-        )
-        is UserUiState.Error -> ErrorScreen()
-    }
-}
-
-@Composable
-fun LoadingScreen(modifier: Modifier = Modifier) {
-    Image(
-        modifier = modifier.size(200.dp),
-        painter = painterResource(R.drawable.ic_launcher_foreground),
-        contentDescription = stringResource(R.string.app_name)
-    )
-}
-
-@Composable
-fun ErrorScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = ""
-        )
-        Text(text = "Error", modifier = Modifier.padding(16.dp))
-    }
-}
-
-@Composable
-fun ResultScreen(User: String, modifier: Modifier = Modifier) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-    ) {
-        Text(text = User)
-    }
-}
+//
+//@Composable
+//fun UsersList(
+//    userUiState: UserUiState,
+//    modifier: Modifier = Modifier
+//) {
+////    val userViewModel: UserViewModel = viewModel()
+//    when (userUiState) {
+//        is UserUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
+//        is UserUiState.Success -> ResultScreen(
+//            userUiState.Users
+//        )
+//        is UserUiState.Error -> ErrorScreen()
+//    }
+//}
+//
+//@Composable
+//fun LoadingScreen(modifier: Modifier = Modifier) {
+//    Image(
+//        modifier = modifier.size(200.dp),
+//        painter = painterResource(R.drawable.ic_launcher_foreground),
+//        contentDescription = stringResource(R.string.app_name)
+//    )
+//}
+//
+//@Composable
+//fun ErrorScreen(modifier: Modifier = Modifier) {
+//    Column(
+//        modifier = modifier,
+//        verticalArrangement = Arrangement.Center,
+//        horizontalAlignment = Alignment.CenterHorizontally
+//    ) {
+//        Image(
+//            painter = painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = ""
+//        )
+//        Text(text = "Error", modifier = Modifier.padding(16.dp))
+//    }
+//}
+//
+//@Composable
+//fun ResultScreen(User: String, modifier: Modifier = Modifier) {
+//    Box(
+//        contentAlignment = Alignment.Center,
+//        modifier = modifier
+//    ) {
+//        Text(text = User)
+//    }
+//}
 
 data class RegionData(val imageId: Int, val regionName: String)
 
-@Composable
-fun CustomLinearProgressIndicator(
-    progress: Float,
-    modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colorScheme.primary,
-    backgroundColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-    indicatorHeight: Dp = 10.dp,
-    indicatorPadding: Dp = 5.dp,
-) {
-    Column(
-        modifier = modifier
-            .padding(10.dp)
-            .fillMaxWidth()
-            .wrapContentHeight(),
-    ) {
-        Text(
-            text = "Collected / Total",
-            fontSize = 15.sp
-        )
-        Text(
-            text = "30%",
-            fontSize = 15.sp
-        )
-
-        Box(
-            modifier = modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-        ) {
-            Box(
-                modifier = Modifier
-                    .height(indicatorHeight)
-                    .fillMaxWidth()
-                    .background(backgroundColor)
-            )
-            Box(
-                modifier = Modifier
-                    .height(indicatorHeight)
-                    .fillMaxWidth(progress)
-                    .background(color)
-                    .padding(start = indicatorPadding, end = indicatorPadding)
-            )
-        }
-    }
-}
+//@Composable
+//fun CustomLinearProgressIndicator(
+//    progress: Float,
+//    modifier: Modifier = Modifier,
+//    color: Color = MaterialTheme.colorScheme.primary,
+//    backgroundColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+//    indicatorHeight: Dp = 10.dp,
+//    indicatorPadding: Dp = 5.dp,
+//) {
+//    Column(
+//        modifier = modifier
+//            .padding(10.dp)
+//            .fillMaxWidth()
+//            .wrapContentHeight(),
+//    ) {
+//        Text(
+//            text = "Collected / Total",
+//            fontSize = 15.sp
+//        )
+//        Text(
+//            text = "30%",
+//            fontSize = 15.sp
+//        )
+//
+//        Box(
+//            modifier = modifier
+//                .fillMaxWidth()
+//                .wrapContentHeight()
+//        ) {
+//            Box(
+//                modifier = Modifier
+//                    .height(indicatorHeight)
+//                    .fillMaxWidth()
+//                    .background(backgroundColor)
+//            )
+//            Box(
+//                modifier = Modifier
+//                    .height(indicatorHeight)
+//                    .fillMaxWidth(progress)
+//                    .background(color)
+//                    .padding(start = indicatorPadding, end = indicatorPadding)
+//            )
+//        }
+//    }
+//}
 
 

@@ -14,7 +14,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -91,61 +90,61 @@ fun HorizontalDraggableSample(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun VerticalDraggableSample(
-    modifier: Modifier = Modifier,
-) {
-    val density = LocalDensity.current
-    val positionalThreshold = { distance: Float -> distance * 0.5f }
-    val velocityThreshold = { with(density) { 100.dp.toPx() } }
-    val animationSpec = tween<Float>()
-    val state = rememberSaveable(
-        density,
-        saver = AnchoredDraggableState.Saver(
-            animationSpec = animationSpec,
-            positionalThreshold = positionalThreshold,
-            velocityThreshold = velocityThreshold,
-        )
-    ) {
-        AnchoredDraggableState(
-            initialValue = DragAnchors.Half,
-            positionalThreshold = positionalThreshold,
-            velocityThreshold = velocityThreshold,
-            animationSpec = animationSpec,
-        )
-    }
-    val contentSize = 50.dp
-    val contentSizePx = with(density) { contentSize.toPx() }
-    Box(
-        modifier
-            .onSizeChanged { layoutSize ->
-                val dragEndPoint = layoutSize.height - contentSizePx
-                state.updateAnchors(
-                    DraggableAnchors {
-                        DragAnchors
-                            .values()
-                            .forEach { anchor ->
-                                anchor at dragEndPoint * anchor.fraction
-                            }
-                    }
-                )
-            }
-    ) {
-        DraggableContent(
-            modifier = Modifier
-                .size(contentSize)
-                .offset {
-                    IntOffset(
-                        x = 0,
-                        y = state.requireOffset().roundToInt(),
-                    )
-                }
-                .anchoredDraggable(state, Orientation.Vertical),
-            onFABClick = {}
-        )
-    }
-}
+//@OptIn(ExperimentalFoundationApi::class)
+//@Composable
+//fun VerticalDraggableSample(
+//    modifier: Modifier = Modifier,
+//) {
+//    val density = LocalDensity.current
+//    val positionalThreshold = { distance: Float -> distance * 0.5f }
+//    val velocityThreshold = { with(density) { 100.dp.toPx() } }
+//    val animationSpec = tween<Float>()
+//    val state = rememberSaveable(
+//        density,
+//        saver = AnchoredDraggableState.Saver(
+//            animationSpec = animationSpec,
+//            positionalThreshold = positionalThreshold,
+//            velocityThreshold = velocityThreshold,
+//        )
+//    ) {
+//        AnchoredDraggableState(
+//            initialValue = DragAnchors.Half,
+//            positionalThreshold = positionalThreshold,
+//            velocityThreshold = velocityThreshold,
+//            animationSpec = animationSpec,
+//        )
+//    }
+//    val contentSize = 50.dp
+//    val contentSizePx = with(density) { contentSize.toPx() }
+//    Box(
+//        modifier
+//            .onSizeChanged { layoutSize ->
+//                val dragEndPoint = layoutSize.height - contentSizePx
+//                state.updateAnchors(
+//                    DraggableAnchors {
+//                        DragAnchors
+//                            .values()
+//                            .forEach { anchor ->
+//                                anchor at dragEndPoint * anchor.fraction
+//                            }
+//                    }
+//                )
+//            }
+//    ) {
+//        DraggableContent(
+//            modifier = Modifier
+//                .size(contentSize)
+//                .offset {
+//                    IntOffset(
+//                        x = 0,
+//                        y = state.requireOffset().roundToInt(),
+//                    )
+//                }
+//                .anchoredDraggable(state, Orientation.Vertical),
+//            onFABClick = {}
+//        )
+//    }
+//}
 
 @Composable
 fun DraggableContent(

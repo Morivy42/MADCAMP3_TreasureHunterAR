@@ -1,9 +1,7 @@
 package io.madcamp.treasurehunterar.collection
 
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,32 +25,24 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.google.firebase.firestore.AggregateField.count
 
 @Composable
 internal fun CollectionRoute(
@@ -80,9 +70,9 @@ internal fun CollectionScreen(
             is CollectionUiState.Loading -> emptyList()
             is CollectionUiState.Error -> emptyList()
         }
-    val count = collectionList.count{it -> it.isFound == true}
+    val count = collectionList.count{ it.isFound }
     val rate = count / 8f
-    val progressState = remember { mutableStateOf(rate) }
+//    val progressState = remember { mutableFloatStateOf(rate) }
     val reloadButtonClicked = remember { mutableStateOf(false) }
     LaunchedEffect(reloadButtonClicked.value) {
         if (reloadButtonClicked.value) {
@@ -142,9 +132,8 @@ private fun CollectionGrid(
                     if (collection.isFound) {
                         navController.navigate("collection_detail/" + "${collection.collectionNum}")
                     } else {
-
+                        Log.d("CollectionDetail", "In Grid" + collection.collectionNum)
                     }
-//                    Log.d("CollectionDetail", "In Grid" + collection.collectionNum)
                 }
             )
         }

@@ -39,7 +39,7 @@ fun TreasureHunterARApp() {
                 NavBarItem.Map,
                 NavBarItem.Collection,
             )
-            NavigationBar() {
+            NavigationBar {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
                 destinations.forEach { destination ->

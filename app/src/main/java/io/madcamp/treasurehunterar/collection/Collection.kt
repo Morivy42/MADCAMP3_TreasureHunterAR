@@ -10,7 +10,6 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import kotlin.random.Random
 
 
 @Serializable
@@ -45,16 +44,6 @@ data class Collection(
     }
 }
 
-@Serializable
-data class CollectionEntity(
-    val collectionNum: Int = 0,
-    val name: String = "",
-    val shortDescription: String = "",
-    val longDescription: String = "",
-    val imageUrl: String = "",
-    val isFound: Boolean = false,
-)
-
 data class CollectionAPIEntity(
     val collection_id: Int,
     val collection_name: String,
@@ -63,17 +52,7 @@ data class CollectionAPIEntity(
     val imageUrl: String,
 )
 
-fun CollectionAPIEntity.toCollection(): Collection {
-    return Collection(
-        collectionNum = collection_id,
-        name = collection_name,
-        short_description,
-        long_description,
-        imageUrl,
-        isFound = false,
-    )
-}
-//
+
 //
 ///*
 // * Copyright 2022 The Android Open Source Project

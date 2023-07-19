@@ -1,12 +1,5 @@
 package io.madcamp.treasurehunterar.auth
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
 class UserRepository constructor(
     private val userService: UserService
 ) {

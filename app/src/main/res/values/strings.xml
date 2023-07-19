@@ -3,7 +3,5 @@
     <string name="home_icon">Home</string>
     <string name="map_icon">Map</string>
     <string name="collection">Collection</string>
-    <string name="ar_icon">AR</string>
 
-    <string name="permission_message">Permissions not granted by the user.</string>
 </resources>
