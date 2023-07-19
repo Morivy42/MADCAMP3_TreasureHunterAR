@@ -63,7 +63,7 @@ fun MapScreen(
 
 
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(kaistMarkerList[makerNum].position, 20f)
+        position = CameraPosition.fromLatLngZoom(kaistMarkerList[makerNum].position, 17f)
     }
     Box(Modifier.fillMaxSize()) {
 
