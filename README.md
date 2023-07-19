@@ -25,6 +25,7 @@ Target Device: Galaxy S7
 
 ## Tab 1. Location & Hints
 
+<img width="194" alt="Tab1-2" src="https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/d02e63a3-24fd-4ef9-889f-08c20493f6e8">
 <img width="194" alt="Tab1-2" src="https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/c559031d-bb97-4387-8004-fa189743410f">
 
 
@@ -52,7 +53,6 @@ Jetpack compose 내의 기능들을 활용해 유저들이 보물을 숨긴 위�
 
 ## Tab 0. Treasure AR
 
-<img width="194" alt="Tab1-2" src="https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/d02e63a3-24fd-4ef9-889f-08c20493f6e8">
 <img width="194" alt="Tab1-2" src="https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/2aca4b4e-601f-4ee7-b0b0-d0b97733226f">
 )
 <img width="194" alt="Tab1-2" src="https://github.com/Morivy42/MADCAMP3_TreasureHunterAR/assets/57134776/088f9409-c0c4-4a32-a34c-0ef230dbaeae">
