@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="io.madcamp.treasurehunterar.CloudAnchorActivity"
+            android:name="io.madcamp.treasurehunterar.treasure.CloudAnchorActivity"
             android:theme="@style/AppTheme">
         </activity>
         <meta-data android:name="com.google.ar.core" android:value="required" />

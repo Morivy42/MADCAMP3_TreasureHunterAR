@@ -1,4 +1,4 @@
-package io.madcamp.treasurehunterar;
+package io.madcamp.treasurehunterar.treasure;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -42,11 +42,13 @@ import com.google.common.base.Preconditions;
 import com.google.firebase.database.DatabaseError;
 
 import java.io.IOException;
+import java.util.Random;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import io.madcamp.treasurehunterar.PrivacyNoticeDialogFragment.HostResolveListener;
+import dagger.hilt.android.AndroidEntryPoint;
+import io.madcamp.treasurehunterar.R;
 import io.madcamp.treasurehunterar.common.helpers.CameraPermissionHelper;
 import io.madcamp.treasurehunterar.common.helpers.DisplayRotationHelper;
 import io.madcamp.treasurehunterar.common.helpers.FullScreenHelper;
@@ -56,8 +58,10 @@ import io.madcamp.treasurehunterar.common.rendering.BackgroundRenderer;
 import io.madcamp.treasurehunterar.common.rendering.ObjectRenderer;
 import io.madcamp.treasurehunterar.common.rendering.PlaneRenderer;
 import io.madcamp.treasurehunterar.common.rendering.PointCloudRenderer;
+import io.madcamp.treasurehunterar.treasure.PrivacyNoticeDialogFragment.HostResolveListener;
 
 
+@AndroidEntryPoint
 public class CloudAnchorActivity extends AppCompatActivity
     implements GLSurfaceView.Renderer, PrivacyNoticeDialogFragment.NoticeDialogListener {
   private static final String TAG = CloudAnchorActivity.class.getSimpleName();
@@ -95,7 +99,7 @@ public class CloudAnchorActivity extends AppCompatActivity
   private Button hostButton;
   private Button resolveButton;
   private TextView roomCodeText;
-  private SharedPreferences sharedPreferences;
+  SharedPreferences sharedPreferences;
   private static final String PREFERENCE_FILE_KEY = "allow_sharing_images";
   private static final String ALLOW_SHARE_IMAGES_KEY = "ALLOW_SHARE_IMAGES";
 
@@ -122,7 +126,7 @@ public class CloudAnchorActivity extends AppCompatActivity
     surfaceView = findViewById(R.id.surfaceview);
     displayRotationHelper = new DisplayRotationHelper(this);
     score = 0;
-
+    sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
     // Set up touch listener.
     gestureDetector =
         new GestureDetector(
@@ -167,7 +171,6 @@ public class CloudAnchorActivity extends AppCompatActivity
     roomCodeText = findViewById(R.id.room_code_text);
     scoreText = findViewById(R.id.score);
     scoreText.setText("점수: 0");
-
     // Initialize Cloud Anchor variables.
     firebaseManager = new FirebaseManager(this);
     currentMode = HostResolveMode.NONE;
@@ -294,6 +297,12 @@ public class CloudAnchorActivity extends AppCompatActivity
   }
 
   private void showSuccessDialog() {
+    String[] randomItems = {"튀김소보로", "튀소구마", "초코튀소", "쑥떡양빵"};
+    Random random = new Random();
+    int randomIndex = random.nextInt(randomItems.length);
+    String randomElement = randomItems[randomIndex];
+    String temp = "를";
+    if (randomIndex == 3) temp = "을";
     AlertDialog.Builder builder = new AlertDialog.Builder(CloudAnchorActivity.this);
     builder.setMessage("상자를 여시겠습니까?");
     builder.setTitle("보물이다!");
@@ -301,11 +310,17 @@ public class CloudAnchorActivity extends AppCompatActivity
     builder.setNegativeButton("아니오", (DialogInterface.OnClickListener) (dialog, which) -> {
       dialog.cancel();
     });
+    String finalTemp = temp;
     builder.setPositiveButton("네", (DialogInterface.OnClickListener) (dialog, which) -> {
       score++;
       scoreText.setText("점수: " + score);
       anchor = null;
       dialog.cancel();
+      AlertDialog.Builder itemBuilder = new AlertDialog.Builder(CloudAnchorActivity.this);
+      itemBuilder.setMessage("도감에 추가됩니다");
+      itemBuilder.setTitle(randomElement + finalTemp + " 찾았다!");
+      AlertDialog alert = itemBuilder.create();
+      alert.show();
     });
     AlertDialog alertDialog = builder.create();
     alertDialog.show();
