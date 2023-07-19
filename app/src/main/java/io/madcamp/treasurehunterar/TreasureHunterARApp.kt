@@ -79,10 +79,20 @@ fun TreasureHunterARApp() {
             Modifier.padding(innerPadding)
         ) {
             composable(NavBarItem.Home.route) {
-                HomeScreen()
+                HomeScreen(navController)
             }
             composable(NavBarItem.Map.route) {
-                MapScreen()
+                MapScreen(0)
+            }
+            composable(
+                "map_route/{makerNum}",
+                arguments = listOf(
+                    navArgument("makerNum") { type = NavType.IntType }
+                )
+            ) { backStackEntry ->
+                MapScreen(
+                    makerNum = backStackEntry.arguments?.getInt("makerNum")!!,
+                )
             }
             composable(NavBarItem.Collection.route) {
                 CollectionRoute(

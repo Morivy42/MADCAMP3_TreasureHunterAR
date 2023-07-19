@@ -14,11 +14,11 @@ fun NavGraphBuilder.homeNavGraph(
         startDestination = Screen.Home.route,
         route = HOME_GRAPH_ROUTE,
     ) {
-        composable(
-            route = Screen.Home.route
-        ) {
-            HomeScreen()
-        }
+//        composable(
+//            route = Screen.Home.route
+//        ) {
+//            HomeScreen()
+//        }
 //        collectionDetail {
 //            navController.navigateToCollectionDetail("1")
 //        }

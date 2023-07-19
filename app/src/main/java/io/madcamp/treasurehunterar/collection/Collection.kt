@@ -2,6 +2,7 @@ package io.madcamp.treasurehunterar.collection
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.random.Random
 
 
 @Serializable
@@ -16,7 +17,7 @@ data class Collection(
     val longDescription: String = "????? ????? ?????",
     @SerialName("imageUrl")
     val imageUrl: String = "https://static.turbosquid.com/Preview/001290/167/LA/_D.jpg",
-    val isFound: Boolean = true,
+    val isFound: Boolean = Random.nextBoolean(),
 )
 
 @Serializable

@@ -19,6 +19,7 @@ import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapType
@@ -29,6 +30,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun MapScreen(
+    makerNum: Int = 0
 ) {
     var uiSettings by remember {
         mutableStateOf(
@@ -56,9 +58,11 @@ fun MapScreen(
     val chicago = LatLng(41.9, -87.6)
     val beijing = LatLng(39.9, 116.4)
     val los = LatLng(34.1, -118.2)
-    val kaist = LatLng(36.4, 127.4)
+
+
+
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(singapore, 10f)
+        position = CameraPosition.fromLatLngZoom(kaistMarkerList[makerNum].position, 20f)
     }
     Box(Modifier.fillMaxSize()) {
 
@@ -68,6 +72,13 @@ fun MapScreen(
             uiSettings = uiSettings,
             cameraPositionState = cameraPositionState
         ) {
+            kaistMarkerList.forEach { mapMarker ->
+                Marker(
+                    state = MarkerState(mapMarker.position),
+                    title = mapMarker.title,
+                    snippet = mapMarker.snippet
+                )
+            }
             Marker(
                 state = MarkerState(position = singapore),
                 title = "Singapore",
@@ -179,3 +190,32 @@ private fun FeatureThatRequiresLocationPermission() {
 fun MapScreenPreview() {
     MapScreen()
 }
+
+data class MapMarker(
+    val position : LatLng,
+    val title : String?,
+    val snippet : String?,
+    )
+
+val kaist = LatLng(36.372218, 127.360436)
+val kaist_n1 = LatLng(36.374180, 127.365830)
+val daejeon_currency_museum = LatLng(36.377877, 127.370617)
+val kaist_kaimaru = LatLng(36.373993, 127.359240)
+
+val kaistMarkerList : List<MapMarker> = listOf(
+    MapMarker(
+        position = kaist,
+        title = "KAIST 본원",
+        snippet = "본원 화분옆에 있을지도??",
+    ),
+    MapMarker(
+        position = kaist_n1,
+        title = "KAIST N1",
+        snippet = "1층 114호에서 초록색을 찾아라",
+    ),
+    MapMarker(
+        position = kaist_kaimaru,
+        title = "카이마루",
+        snippet = null,
+    ),
+)
