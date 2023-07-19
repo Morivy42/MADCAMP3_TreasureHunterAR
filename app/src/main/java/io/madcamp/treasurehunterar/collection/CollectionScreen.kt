@@ -10,15 +10,19 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -26,6 +30,8 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -38,6 +44,7 @@ import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -65,20 +72,26 @@ internal fun CollectionScreen(
     modifier: Modifier = Modifier,
     collectionViewModel: CollectionViewModel,
 ) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Collections") },
-                modifier = modifier,
-            )
+    val progressState = remember { mutableStateOf(0.3f) }
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("Collections") },
+                )
+            }
+    )
+        {
+            Column(Modifier.padding(it)) {
+                CustomLinearProgressIndicator(
+                    progress = progressState.value,
+                    modifier = Modifier.padding(16.dp)
+                )
+                CollectionGrid(
+                    navController = navController,
+                    collectionUiState = collectionViewModel.collectionUiState,
+                )
+            }
         }
-    ) { paddingValues ->
-        CollectionGrid(
-            navController = navController,
-            modifier.padding(paddingValues),
-            collectionUiState = collectionViewModel.collectionUiState,
-        )
-    }
 }
 
 @Composable
@@ -173,6 +186,52 @@ fun CollectionCard(
                 )
             }
         }
+}
+
+@Composable
+fun CustomLinearProgressIndicator(
+    progress: Float,
+    modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colorScheme.primary,
+    backgroundColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+    indicatorHeight: Dp = 10.dp,
+    indicatorPadding: Dp = 5.dp,
+) {
+    Column(
+        modifier = modifier
+            .padding(10.dp)
+            .fillMaxWidth()
+            .wrapContentHeight(),
+    ) {
+        Text(
+            text = "Collected / Total",
+            fontSize = 15.sp
+        )
+        Text(
+            text = "30%",
+            fontSize = 15.sp
+        )
+
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+        ) {
+            Box(
+                modifier = Modifier
+                    .height(indicatorHeight)
+                    .fillMaxWidth()
+                    .background(backgroundColor)
+            )
+            Box(
+                modifier = Modifier
+                    .height(indicatorHeight)
+                    .fillMaxWidth(progress)
+                    .background(color)
+                    .padding(start = indicatorPadding, end = indicatorPadding)
+            )
+        }
+    }
 }
 
 //@Preview

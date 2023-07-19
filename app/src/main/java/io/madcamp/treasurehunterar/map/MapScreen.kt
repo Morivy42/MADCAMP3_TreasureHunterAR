@@ -27,6 +27,7 @@ import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import io.madcamp.treasurehunterar.R
 
 @Composable
 fun MapScreen(
@@ -195,6 +196,7 @@ data class MapMarker(
     val position : LatLng,
     val title : String?,
     val snippet : String?,
+    val imageResourceId: Int
     )
 
 val kaist = LatLng(36.372218, 127.360436)
@@ -205,17 +207,26 @@ val kaist_kaimaru = LatLng(36.373993, 127.359240)
 val kaistMarkerList : List<MapMarker> = listOf(
     MapMarker(
         position = kaist,
-        title = "KAIST 본원",
-        snippet = "본원 화분옆에 있을지도??",
+        title = "KAIST 본관",
+        snippet = "본관 화분 근처에 있을지도??",
+        imageResourceId = R.drawable.daejeon
     ),
     MapMarker(
         position = kaist_n1,
         title = "KAIST N1",
-        snippet = "1층 114호에서 초록색을 찾아라",
+        snippet = "N1 1층 14호에서 초록색을 찾아라!!",
+        imageResourceId = R.drawable.duck
     ),
     MapMarker(
         position = kaist_kaimaru,
         title = "카이마루",
-        snippet = null,
+        snippet = "카이마루 유일의 중국집인 이곳은?",
+        imageResourceId = R.drawable.dream
     ),
+    MapMarker(
+        position = daejeon_currency_museum,
+        title = "Museum",
+        snippet = null,
+        imageResourceId = R.drawable.android
+    )
 )
