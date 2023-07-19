@@ -21,6 +21,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -82,26 +83,41 @@ internal fun CollectionScreen(
     val count = collectionList.count{it -> it.isFound == true}
     val rate = count / 8f
     val progressState = remember { mutableStateOf(rate) }
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text("Collections") },
-                )
-            }
-    )
-        {
-            Column(Modifier.padding(it)) {
-                CustomLinearProgressIndicator(
-                    progress = rate,
-                    modifier = Modifier.padding(16.dp)
-                )
-                CollectionGrid(
-                    navController = navController,
-                    modifier = modifier,
-                    collectionList
-                )
-            }
+    val reloadButtonClicked = remember { mutableStateOf(false) }
+    LaunchedEffect(reloadButtonClicked.value) {
+        if (reloadButtonClicked.value) {
+            collectionViewModel.reloadCollections()
+            reloadButtonClicked.value = false
         }
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Collections") },
+                actions = {
+                    Button(
+                        onClick = { reloadButtonClicked.value = true },
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text("Reload Collections")
+                    }
+                }
+            )
+        }
+    ) {
+        Column(Modifier.padding(it)) {
+            CustomLinearProgressIndicator(
+                progress = rate,
+                modifier = Modifier.padding(16.dp)
+            )
+            CollectionGrid(
+                navController = navController,
+                modifier = modifier,
+                collectionList
+            )
+        }
+    }
 }
 
 @Composable
@@ -211,7 +227,7 @@ fun CustomLinearProgressIndicator(
             fontSize = 15.sp
         )
         Text(
-            text = "$progress" + "%",
+            text = "${progress * 100}" + "%",
             fontSize = 15.sp
         )
 

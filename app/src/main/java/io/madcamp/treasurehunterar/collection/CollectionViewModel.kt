@@ -41,31 +41,19 @@ class CollectionViewModel () : ViewModel() {
         }
     }
 
+    fun reloadCollections() {
+        viewModelScope.launch {
+            collectionUiState = CollectionUiState.Loading
+            collectionUiState = try {
+                val collectionList = CollectionApi.retrofitService.getCollections()
+                CollectionUiState.Success(collectionList)
+            } catch (e: IOException) {
+                Log.d("GetCollectionsException", e.toString())
+                CollectionUiState.Error
+            } catch (e: HttpException) {
+                Log.d("GetCollectionsException", e.toString())
+                CollectionUiState.Error
+            }
+        }
+    }
 }
-
-
-//class DemoScreenViewModel : ViewModel() {
-//    sealed class State {
-//        object Loading: State()
-//        data class Data(val data: String): State()
-//    }
-//
-//    private var _state = MutableStateFlow<State>(State.Loading)
-//    val state = _state.asStateFlow()
-//
-//    init {
-//        viewModelScope.launch {
-//            while (isActive) {
-//                val data = makeDataLoadCallOnEntry()
-//                _state.value = State.Data(data)
-//                // wait one minute and repeat your request
-//                delay(60 * 1000L)
-//            }
-//        }
-//    }
-//
-//    suspend fun makeDataLoadCallOnEntry(): String {
-//        delay(1000)
-//        return "Hello world"
-//    }
-//}
