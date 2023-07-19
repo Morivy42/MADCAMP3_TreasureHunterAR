@@ -39,15 +39,19 @@ import com.google.ar.core.exceptions.UnavailableApkTooOldException;
 import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.common.base.Preconditions;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import dagger.hilt.android.AndroidEntryPoint;
 import io.madcamp.treasurehunterar.R;
 import io.madcamp.treasurehunterar.common.helpers.CameraPermissionHelper;
 import io.madcamp.treasurehunterar.common.helpers.DisplayRotationHelper;
@@ -61,7 +65,6 @@ import io.madcamp.treasurehunterar.common.rendering.PointCloudRenderer;
 import io.madcamp.treasurehunterar.treasure.PrivacyNoticeDialogFragment.HostResolveListener;
 
 
-@AndroidEntryPoint
 public class CloudAnchorActivity extends AppCompatActivity
     implements GLSurfaceView.Renderer, PrivacyNoticeDialogFragment.NoticeDialogListener {
   private static final String TAG = CloudAnchorActivity.class.getSimpleName();
@@ -226,21 +229,21 @@ public class CloudAnchorActivity extends AppCompatActivity
         }
         session = new Session(this);
       } catch (UnavailableArcoreNotInstalledException e) {
-        messageId = 1;
+        messageId = Integer.parseInt("ARcore 설치 필요");
         exception = e;
       } catch (UnavailableApkTooOldException e) {
-        messageId = 2;
+        messageId = Integer.parseInt("ARcore 업데이트 필요");
         exception = e;
       } catch (UnavailableSdkTooOldException e) {
-        messageId = 3;
+        messageId = Integer.parseInt("SDK 업데이트 필요");
         exception = e;
       } catch (Exception e) {
-        messageId = 4;
+        messageId = Integer.parseInt("ARcore 지원 안됨");
         exception = e;
       }
 
       if (exception != null) {
-        snackbarHelper.showError(this, "에러");
+        snackbarHelper.showError(this, getString(messageId));
         Log.e(TAG, "세션 오류", exception);
         return;
       }
@@ -316,14 +319,31 @@ public class CloudAnchorActivity extends AppCompatActivity
       scoreText.setText("점수: " + score);
       anchor = null;
       dialog.cancel();
+      updateItemIsFound(randomIndex + 1);
       AlertDialog.Builder itemBuilder = new AlertDialog.Builder(CloudAnchorActivity.this);
       itemBuilder.setMessage("도감에 추가됩니다");
       itemBuilder.setTitle(randomElement + finalTemp + " 찾았다!");
+      itemBuilder.setCancelable(true);
       AlertDialog alert = itemBuilder.create();
       alert.show();
     });
     AlertDialog alertDialog = builder.create();
     alertDialog.show();
+  }
+
+  private void updateItemIsFound(int index) {
+    FirebaseApp firebaseApp = FirebaseApp.getInstance();
+    if (firebaseApp != null) {
+      DatabaseReference rootRef = FirebaseDatabase.getInstance(firebaseApp).getReference();
+      DatabaseReference collectionRef = rootRef.child("collection").child(Integer.toString(index));
+      Map<String, Object> update = new HashMap<>();
+      update.put("isFound", true);
+      collectionRef.updateChildren(update)
+              .addOnSuccessListener(aVoid -> {
+              })
+              .addOnFailureListener(e -> {
+              });
+    }
   }
   /**
    * Handles the most recent user tap.
@@ -345,7 +365,7 @@ public class CloudAnchorActivity extends AppCompatActivity
             && cameraTrackingState == TrackingState.TRACKING) {
           Preconditions.checkState(
               currentMode == HostResolveMode.HOSTING,
-              "호스트가 필요합니다");
+              "호스트 에러");
           for (HitResult hit : frame.hitTest(queuedSingleTap)) {
             if (shouldCreateAnchorWithHit(hit)) {
               Anchor newAnchor = hit.createAnchor();
@@ -511,7 +531,7 @@ public class CloudAnchorActivity extends AppCompatActivity
     }
     resolveButton.setEnabled(false);
     hostButton.setText("취소");
-    snackbarHelper.showMessageWithDismiss(this, "취소");
+    snackbarHelper.showMessageWithDismiss(this, "보물을 숨기세요!");
 
     hostListener = new RoomCodeAndCloudAnchorIdListener();
     firebaseManager.getNewRoomCode(hostListener);

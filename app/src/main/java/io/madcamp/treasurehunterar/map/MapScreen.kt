@@ -29,7 +29,6 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun MapScreen(
-
 ) {
     var uiSettings by remember {
         mutableStateOf(
@@ -47,6 +46,17 @@ fun MapScreen(
         )
     }
     val singapore = LatLng(1.35, 103.87)
+    val newyork = LatLng(40.7, -74.0)
+    val paris = LatLng(48.9, 2.4)
+    val tokyo = LatLng(35.7, 139.7)
+    val seoul = LatLng(37.6, 127.0)
+    val kairo = LatLng(30.0, 31.2)
+    val london = LatLng(51.5, 0.1)
+    val buenosaires = LatLng(-34.6, -58.4)
+    val chicago = LatLng(41.9, -87.6)
+    val beijing = LatLng(39.9, 116.4)
+    val los = LatLng(34.1, -118.2)
+    val kaist = LatLng(36.4, 127.4)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(singapore, 10f)
     }
@@ -63,6 +73,63 @@ fun MapScreen(
                 title = "Singapore",
                 snippet = "Marker in Singapore"
             )
+            Marker(
+                state = MarkerState(position = newyork),
+                title = "Newyork",
+                snippet = "Marker in Newyork"
+            )
+            Marker(
+                state = MarkerState(position = tokyo),
+                title = "Tokyo",
+                snippet = "Marker in Tokyo"
+            )
+            Marker(
+                state = MarkerState(position = seoul),
+                title = "Seoul",
+                snippet = "Marker in Seoul"
+            )
+            Marker(
+                state = MarkerState(position = kairo),
+                title = "Kairo",
+                snippet = "Marker in Kairo"
+            )
+            Marker(
+                state = MarkerState(position = paris),
+                title = "Paris",
+                snippet = "Marker in Paris"
+            )
+            Marker(
+                state = MarkerState(position = london),
+                title = "London",
+                snippet = "Marker in London"
+            )
+            Marker(
+                state = MarkerState(position = buenosaires),
+                title = "Buenos Aires",
+                snippet = "Marker in Buenos Aires"
+            )
+            Marker(
+                state = MarkerState(position = chicago),
+                title = "Chicago",
+                snippet = "Marker in Chicago"
+            )
+            Marker(
+                state = MarkerState(position = beijing),
+                title = "Beijing",
+                snippet = "Marker in Beijing"
+            )
+            Marker(
+                state = MarkerState(position = los),
+                title = "Los Angeles",
+                snippet = "Marker in Los Angeles"
+            )
+            /*if (showKaist) {
+                Marker(
+                    state = MarkerState(position = kaist),
+                    title = "Kaist",
+                    snippet = "Marker in Kaist"
+                )
+            }*/
         }
         FeatureThatRequiresLocationPermission()
         Switch(
