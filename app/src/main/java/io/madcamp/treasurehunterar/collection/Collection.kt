@@ -1,7 +1,26 @@
 package io.madcamp.treasurehunterar.collection
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+
+@Serializable
 data class Collection(
+    @SerialName("collection_id")
+    val collectionNum: Int = 0,
+    @SerialName("collection_name")
+    val name: String = "???",
+    @SerialName("short_description")
+    val shortDescription: String = "?????",
+    @SerialName("long_description")
+    val longDescription: String = "????? ????? ?????",
+    @SerialName("imageUrl")
+    val imageUrl: String = "https://static.turbosquid.com/Preview/001290/167/LA/_D.jpg",
+    val isFound: Boolean = true,
+)
+
+@Serializable
+data class CollectionEntity(
     val collectionNum: Int = 0,
     val name: String = "",
     val shortDescription: String = "",

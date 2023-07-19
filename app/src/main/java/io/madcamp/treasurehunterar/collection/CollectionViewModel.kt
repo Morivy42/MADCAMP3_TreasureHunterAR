@@ -1,30 +1,45 @@
 package io.madcamp.treasurehunterar.collection
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import okio.IOException
+import retrofit2.HttpException
 
-@HiltViewModel
-class CollectionViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
-    collectionRepository: CollectionRepository
-) : ViewModel() {
-    private val collectionId: String = savedStateHandle["cid"] ?:
-    throw IllegalArgumentException("Missing collection ID")
+sealed interface CollectionUiState {
+    data class Success(val Collections: List<Collection>) : CollectionUiState
+    object Error : CollectionUiState
+    object Loading : CollectionUiState
+}
+class CollectionViewModel () : ViewModel() {
 
-    private val _collection = MutableLiveData<Collection>()
-    val collection = _collection as LiveData<Collection>
+    var collectionUiState : CollectionUiState by mutableStateOf(CollectionUiState.Loading)
 
-    private val _collectionList = MutableLiveData<List<Collection>>()
-    val collectionList = _collectionList as LiveData<List<Collection>>
+    init {
+        getCollections()
+    }
 
-
+    private fun getCollections() {
+        viewModelScope.launch {
+            collectionUiState = CollectionUiState.Loading
+            collectionUiState = try {
+                val collectionList = CollectionApi.retrofitService.getCollections()
+                CollectionUiState.Success(
+                    collectionList
+                )
+            } catch (e: IOException) {
+                Log.d("GetCollectionsException", e.toString())
+                CollectionUiState.Error
+            } catch (e: HttpException) {
+                Log.d("GetCollectionsException", e.toString())
+                CollectionUiState.Error
+            }
+        }
+    }
 
 }
 

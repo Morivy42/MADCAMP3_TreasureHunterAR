@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -22,7 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import io.madcamp.treasurehunterar.collection.CollectionDetail
 import io.madcamp.treasurehunterar.collection.CollectionRoute
-import io.madcamp.treasurehunterar.collection.collectionList
+import io.madcamp.treasurehunterar.collection.CollectionViewModel
 import io.madcamp.treasurehunterar.map.MapScreen
 import io.madcamp.treasurehunterar.navigation.NavBarItem
 
@@ -30,6 +31,7 @@ import io.madcamp.treasurehunterar.navigation.NavBarItem
 @Composable
 fun TreasureHunterARApp() {
     val navController = rememberNavController()
+    val collectionViewModel: CollectionViewModel = viewModel()
     Scaffold(
         bottomBar = {
             val destinations = listOf(
@@ -83,7 +85,11 @@ fun TreasureHunterARApp() {
                 MapScreen()
             }
             composable(NavBarItem.Collection.route) {
-                CollectionRoute(navController)
+                CollectionRoute(
+                    navController,
+                    Modifier,
+                    collectionViewModel
+                )
             }
             composable(
                 "collection_detail/{collectionId}",
@@ -91,7 +97,10 @@ fun TreasureHunterARApp() {
                     navArgument("collectionId") { type = NavType.IntType }
                 )
             ) { backStackEntry ->
-                CollectionDetail(collection = collectionList[backStackEntry.arguments?.getInt("collectionId")!! - 1])
+                CollectionDetail(
+                    collectionId = backStackEntry.arguments?.getInt("collectionId")!! - 1,
+                    collectionViewModel
+                )
             }
         }
     }

@@ -41,9 +41,9 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxWidth()
                                 .align(Alignment.BottomCenter)
                                 .padding(
-                                    start = 30.dp,
-                                    end = 30.dp,
-                                    bottom = 120.dp
+                                    start = 10.dp,
+                                    end = 10.dp,
+                                    bottom = 100.dp
                                 ),
                             onFABClick = { startJavaActivity() }
                         )

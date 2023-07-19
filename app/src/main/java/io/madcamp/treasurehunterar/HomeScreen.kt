@@ -16,13 +16,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,25 +29,64 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.MapProperties
-import com.google.maps.android.compose.MapType
-import com.google.maps.android.compose.MapUiSettings
+import androidx.compose.ui.unit.sp
 import io.madcamp.treasurehunterar.auth.UserUiState
 
 @Preview
 @Composable
 fun HomeScreen() {
-    Column {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(15.dp)
+    ) {
         ProfileCard()
-        Row {
-            RegionCard()
-            RegionCard()
-            RegionCard()
-            RegionCard()
-        }
+        CustomLinearProgressIndicator(0.3f)
+        RegionRecommendationRow()
+        HintCardList()
     }
 //    MapScreen()
+}
+
+@Composable
+fun HintCardList() {
+    Column() {
+        HintCard()
+        HintCard()
+        HintCard()
+        HintCard()
+        HintCard()
+    }
+}
+
+@Composable
+fun HintCard() {
+    Card() {
+        Row() {
+            Image(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_launcher_foreground),
+                contentDescription = "Hint image maybe pin?"
+            )
+            Text(text = "Hint")
+        }
+    }
+}
+
+
+@Composable
+fun RegionRecommendationRow() {
+
+//    LazyRow(
+//
+//    ) {
+//
+//    }
+    Row() {
+        RegionCard()
+        RegionCard()
+        RegionCard()
+        RegionCard()
+        RegionCard()
+        RegionCard()
+    }
 }
 
 @Preview
@@ -77,14 +111,14 @@ fun RegionCard() {
 fun ProfileCard() {
     Card(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .height(200.dp),
         shape = RoundedCornerShape(20f),
-
     ) {
-        Text(text = "Welcome")
-        Text(text = "name")
-        Text(text = "collected / total")
-        CustomLinearProgressIndicator(0.3f)
+        Text(
+            text = "Welcome, " + "name",
+            fontSize = 32.sp
+        )
     }
 
 }
@@ -94,28 +128,44 @@ fun CustomLinearProgressIndicator(
     progress: Float,
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.primary,
-    backgroundColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
-    indicatorHeight: Dp = 4.dp,
-    indicatorPadding: Dp = 0.dp
+    backgroundColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+    indicatorHeight: Dp = 10.dp,
+    indicatorPadding: Dp = 5.dp,
 ) {
-    Box(
+    Column(
         modifier = modifier
+            .padding(10.dp)
             .fillMaxWidth()
-            .wrapContentHeight()
+            .wrapContentHeight(),
     ) {
+        Text(
+            text = "Collected / Total",
+            fontSize = 15.sp
+        )
+        Text(
+            text = "30%",
+            fontSize = 15.sp
+        )
+
         Box(
-            modifier = Modifier
-                .height(indicatorHeight)
+            modifier = modifier
                 .fillMaxWidth()
-                .background(backgroundColor)
-        )
-        Box(
-            modifier = Modifier
-                .height(indicatorHeight)
-                .fillMaxWidth(progress)
-                .background(color)
-                .padding(start = indicatorPadding, end = indicatorPadding)
-        )
+                .wrapContentHeight()
+        ) {
+            Box(
+                modifier = Modifier
+                    .height(indicatorHeight)
+                    .fillMaxWidth()
+                    .background(backgroundColor)
+            )
+            Box(
+                modifier = Modifier
+                    .height(indicatorHeight)
+                    .fillMaxWidth(progress)
+                    .background(color)
+                    .padding(start = indicatorPadding, end = indicatorPadding)
+            )
+        }
     }
 }
 

@@ -13,14 +13,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 
 @Composable
 fun CollectionDetail(
-    collection: Collection
+    collectionId : Int,
+    collectionViewModel: CollectionViewModel
 ){
+    val collectionList =
+        when (val collectionUiState = collectionViewModel.collectionUiState) {
+            is CollectionUiState.Success -> collectionUiState.Collections
+            is CollectionUiState.Loading -> emptyList()
+            is CollectionUiState.Error -> emptyList()
+        }
+    val collection = collectionList[collectionId]
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -67,18 +74,4 @@ fun CollectionDetail(
         }
     }
 
-}
-
-@Preview
-@Composable
-fun CollectionDetailPreview() {
-    CollectionDetail(
-        collection = Collection(
-            collectionNum = 1,
-            name = "튀김소보로",
-            shortDescription = "1번 컬렉션",
-            longDescription = "1번 컬렉션입니다. 1번 컬렉션입니다. ",
-            imageUrl = "https://www.sungsimdangmall.co.kr/data/sungsimdang/goods/sungsimdang/big/IMG01.png"
-        )
-    )
 }
