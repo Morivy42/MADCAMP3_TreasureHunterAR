@@ -51,6 +51,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.google.firebase.firestore.AggregateField.count
 
 @Composable
 internal fun CollectionRoute(
@@ -72,7 +73,15 @@ internal fun CollectionScreen(
     modifier: Modifier = Modifier,
     collectionViewModel: CollectionViewModel,
 ) {
-    val progressState = remember { mutableStateOf(0.3f) }
+    val collectionList =
+        when (collectionViewModel.collectionUiState) {
+            is CollectionUiState.Success -> (collectionViewModel.collectionUiState as CollectionUiState.Success).Collections
+            is CollectionUiState.Loading -> emptyList()
+            is CollectionUiState.Error -> emptyList()
+        }
+    val count = collectionList.count{it -> it.isFound == true}
+    val rate = count / 8f
+    val progressState = remember { mutableStateOf(rate) }
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -83,12 +92,13 @@ internal fun CollectionScreen(
         {
             Column(Modifier.padding(it)) {
                 CustomLinearProgressIndicator(
-                    progress = progressState.value,
+                    progress = rate,
                     modifier = Modifier.padding(16.dp)
                 )
                 CollectionGrid(
                     navController = navController,
-                    collectionUiState = collectionViewModel.collectionUiState,
+                    modifier = modifier,
+                    collectionList
                 )
             }
         }
@@ -98,15 +108,8 @@ internal fun CollectionScreen(
 private fun CollectionGrid(
     navController: NavController,
     modifier: Modifier = Modifier,
-    collectionUiState: CollectionUiState
+    collectionList: List<Collection>
 ) {
-
-    val collectionList =
-        when (collectionUiState) {
-            is CollectionUiState.Success -> collectionUiState.Collections
-            is CollectionUiState.Loading -> emptyList()
-            is CollectionUiState.Error -> emptyList()
-        }
 
     LazyVerticalGrid(
         columns = GridCells.FixedSize(100.dp),
@@ -204,11 +207,11 @@ fun CustomLinearProgressIndicator(
             .wrapContentHeight(),
     ) {
         Text(
-            text = "Collected / Total",
+            text = "Progress",
             fontSize = 15.sp
         )
         Text(
-            text = "30%",
+            text = "$progress" + "%",
             fontSize = 15.sp
         )
 
